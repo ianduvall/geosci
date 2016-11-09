@@ -1,0 +1,63 @@
+\hypertarget{GS__GetValidFileID_8c}{\section{src/\+G\+S\+\_\+\+Get\+Valid\+File\+I\+D.c File Reference}
+\label{GS__GetValidFileID_8c}\index{src/\+G\+S\+\_\+\+Get\+Valid\+File\+I\+D.\+c@{src/\+G\+S\+\_\+\+Get\+Valid\+File\+I\+D.\+c}}
+}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}bstrlib.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gmalloc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}H5\+A\+T\+T\+R.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}globals.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{GS__GetValidFileID_8c_a8fe83ac76edc595f6b98cd4a4127aed5}{\#define {\bfseries E\+R\+R\+O\+R}~-\/1}\label{GS__GetValidFileID_8c_a8fe83ac76edc595f6b98cd4a4127aed5}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+hid\+\_\+t \hyperlink{GS__GetValidFileID_8c_a99c937f579059c0ebea985ce6f61158f}{G\+S\+\_\+\+Get\+Valid\+File\+I\+D} (hid\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em G\+S\+\_\+\+Get\+Valid\+File\+I\+D returns a valid File\+I\+D that contains the object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{GS__GetValidFileID_8c_a99c937f579059c0ebea985ce6f61158f}{\index{G\+S\+\_\+\+Get\+Valid\+File\+I\+D.\+c@{G\+S\+\_\+\+Get\+Valid\+File\+I\+D.\+c}!G\+S\+\_\+\+Get\+Valid\+File\+I\+D@{G\+S\+\_\+\+Get\+Valid\+File\+I\+D}}
+\index{G\+S\+\_\+\+Get\+Valid\+File\+I\+D@{G\+S\+\_\+\+Get\+Valid\+File\+I\+D}!G\+S\+\_\+\+Get\+Valid\+File\+I\+D.\+c@{G\+S\+\_\+\+Get\+Valid\+File\+I\+D.\+c}}
+\subsubsection[{G\+S\+\_\+\+Get\+Valid\+File\+I\+D}]{\setlength{\rightskip}{0pt plus 5cm}hid\+\_\+t G\+S\+\_\+\+Get\+Valid\+File\+I\+D (
+\begin{DoxyParamCaption}
+\item[{hid\+\_\+t}]{id}
+\end{DoxyParamCaption}
+)}}\label{GS__GetValidFileID_8c_a99c937f579059c0ebea985ce6f61158f}
+
+
+G\+S\+\_\+\+Get\+Valid\+File\+I\+D returns a valid File\+I\+D that contains the object. 
+
+G\+S\+\_\+\+Get\+Valid\+File\+I\+D returns a valid File\+I\+D that contains the object-\/id.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em id} & An id for an object in a Geo\+Sci\+P\+Y file.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A valid File\+I\+D is returned or a value less than 0 on error.
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example}
+Assume one has opened a file and an image, passes the image\+\_\+id into a function, and needs the file\+\_\+id asociated with the image\+\_\+id. 
+\begin{DoxyCode}
+hid\_t image\_id, file\_id;
+file\_id = \hyperlink{GS__GetValidFileID_8c_a99c937f579059c0ebea985ce6f61158f}{GS\_GetValidFileID}(image\_id);
+\textcolor{keywordflow}{if}(file\_id < 0) \{
+   printf(\textcolor{stringliteral}{"Could not get valid file\_id\(\backslash\)n"});
+\}
+\end{DoxyCode}
+
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Details}
+This function either returns an {\ttfamily id} that is the same as the passed-\/in {\ttfamily id}, but with an incremented reference-\/count, or it returns a different {\ttfamily id}, also with an incremented reference-\/count. The user should always \hyperlink{GS__FileClose_8c_a1e9f0a9400fffd99b282b1dd651fa63d}{G\+S\+\_\+\+File\+Close()} this {\ttfamily id} when done with it. The associated file will only be closed when the reference count reaches zero.
+
+A typical usage of this is to make sure a passed-\/in {\ttfamily id} is a {\ttfamily file\+\_\+id}. In such a case, this will increment the reference count by 1, and the user should then \hyperlink{GS__FileClose_8c_a1e9f0a9400fffd99b282b1dd651fa63d}{G\+S\+\_\+\+File\+Close()} it when done, which will N\+O\+T close the file that the passed-\/in {\ttfamily file\+\_\+id} refers to.
+
+In another scenario, where the code needs to return a newly-\/opened object in the passed-\/in {\ttfamily file\+\_\+id}, one needs to be more careful. Do not use this routine. Instead call G\+S\+\_\+\+Object\+Is\+File(id) to make sure the {\ttfamily id} refers to a file, and return an error if it doesn't. 
+\end{DoxyParagraph}

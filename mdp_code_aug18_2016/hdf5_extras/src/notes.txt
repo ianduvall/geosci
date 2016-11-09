@@ -1,0 +1,155 @@
+to convert IFile*
+
+1. include "ifile.h"
+
+2. Change strpy to bassigncstr
+
+3. change sprintf to bassignformat
+
+4. HMalloc, HFree, HRealloc
+   change to G
+
+next:
+IFileReadAccess.c
+
+
+yet:
+need to make sure all these are in their own namespace.
+also need to grab and compoile all the other "easy" hdf5 funcs that I
+wrote.
+see: 
+/x/lep/OGRSF/libraries/geosci_clib/src/hdf
+and:
+/home/lep/notpci9/src/clib_hdf5
+
+
+
+up to IFileOpen:
+I'm making sure that all the calls to to other codes 
+start with GS_
+and I create the other codes if they don't yet exist.
+(by copying from ~/notpci9/src/clib_hdf5, and then changing all the
+calls to use bstrings and whatever else is needed.)
+
+
+yet:
+need function:
+GS_H5ObjectTypeAsString
+get from ~/notpci9/src/clib_hdf5/H5ObjectTypeAsString.c
+
+
+june 9:
+Image and raster metdata are now quite different.
+I'm updating GS_ValidMetadataName, GS_ImageCreateMetadata
+
+
+
+  bassigncstr(name,"pixel_size_units");
+  bassigncstr(string_value,"meter");
+  if(!GS_UpdateMetadata(image_header_id,name,string_value)){
+    bassignformat(error_string,"GS_ImageCreateMetadata: Error writing pixel_size_units.");
+    GS_GroupClose(image_header_id);
+    GS_FileClose(ifile_id);
+    bdestroy(name);
+    bdestroy(string_value);
+    return FALSE;
+  }
+  bassigncstr(name,"pixel_size_x");
+  bassigncstr(string_value,"1.0");
+  if(!GS_UpdateMetadata(image_header_id,name,string_value)){
+    bassignformat(error_string,"GS_ImageCreateMetadata: Error writing pixel_size_x.");
+    GS_GroupClose(image_header_id);
+    GS_FileClose(ifile_id);
+    bdestroy(name);
+    bdestroy(string_value);
+    return FALSE;
+  }
+  bassigncstr(name,"pixel_size_y");
+  bassigncstr(string_value,"1.0");
+  if(!GS_UpdateMetadata(image_header_id,name,string_value)){
+    bassignformat(error_string,"GS_ImageCreateMetadata: Error writing pixel_size_y.");
+    GS_GroupClose(image_header_id);
+    GS_FileClose(ifile_id);
+    bdestroy(name);
+    bdestroy(string_value);
+    return FALSE;
+  }
+
+  bassigncstr(name,"type");
+  string_value = bstrcpy(typestring);
+  if(!GS_UpdateMetadata(image_header_id,name,string_value)){
+    bassignformat(error_string,"GS_ImageCreateMetadata: Error writing type.");
+    GS_GroupClose(image_header_id);
+    GS_FileClose(ifile_id);
+    bdestroy(name);
+    bdestroy(string_value);
+    return FALSE;
+  }
+  bassigncstr(name,"nchannels");
+  string_value = bstrcpy(chanstr);
+  if(!GS_UpdateMetadata(image_header_id,name,string_value)){
+    bassignformat(error_string,"GS_ImageCreateMetadata: Error writing nchannels.");
+    GroupClose(image_header_id);
+    FileClose(ifile_id);
+    bdestroy(name);
+    bdestroy(string_value);
+    return FALSE;
+  }
+  bassigncstr(name,"npixels");
+  string_value = bstrcpy(pixstr);
+  if(!GS_UpdateMetadata(image_header_id,name,string_value)){
+    bassignformat(error_string,"GS_ImageCreateMetadata: Error writing npixels.");
+    GS_GroupClose(image_header_id);
+    GS_FileClose(ifile_id);
+    bdestroy(name);
+    bdestroy(string_value);
+    return FALSE;
+  }
+  bassigncstr(name,"nlines");
+  string_value = bstrcpy(linestr);
+  if(!GS_UpdateMetadata(image_header_id,name,string_value)){
+    bassignformat(error_string,"GS_ImageCreateMetadata: Error writing nlines.");
+    GS_GroupClose(image_header_id);
+    GS_FileClose(ifile_id);
+    bdestroy(name);
+    bdestroy(string_value);
+    return FALSE;
+  }
+
+
+
+
+
+C
+C       int     pixels;
+C                   Number of pixels per line (x-dimension).  This
+C                   applies to all channels in the file.
+C
+C       int     lines;
+C                   Number of lines in image (y-dimension).  This
+C                   applies to all channels in the file.
+C
+C       int     channels;
+C                   Number of channels in the image.
+C
+C       const int *channel_types;
+C                   Array of types, one for each channel.
+C                   Each type can be one of the pre-defined GeoSciPy 
+C                   image types listed below:
+C                   DATATYPE_UI1  1   A single bit
+C                   DATATYPE_UI8  2   Unsigned 8-bit integer
+C                   DATATYPE_SI8  3   Signed 8-bit integer
+C                   DATATYPE_CI8  4   Complex 8-bit integer
+C                   DATATYPE_UI16 5   Unsigned 16-bit integer
+C                   DATATYPE_SI16 6   Signed 16-bit integer
+C                   DATATYPE_CI16 7   Complex 16-bit integer
+C                   DATATYPE_UI32 8   Unsigned 32-bit integer
+C                   DATATYPE_SI32 9   Signed 32-bit integer
+C                   DATATYPE_CI32 10  Complex 32-bit integer
+C                   DATATYPE_CI64 11  Complex 64-bit integer
+C                   DATATYPE_R32  12  32-bit Real number
+C                   DATATYPE_R64  13  64-bit Real number
+C                   DATATYPE_C64  14  Complex 64-bit floating-point number
+C                   DATATYPE_C128 15  Complex 128-bit floating point number
+C                   DATATYPE_UI64 16  Unsigned 64-bit integer
+C                   DATATYPE_SI64 17  Signed 64-bit integer

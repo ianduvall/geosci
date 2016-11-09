@@ -1,0 +1,68 @@
+\hypertarget{string__funcs_8h}{}\section{src/string\+\_\+funcs.h File Reference}
+\label{string__funcs_8h}\index{src/string\+\_\+funcs.\+h@{src/string\+\_\+funcs.\+h}}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{string__funcs_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{}\#define {\bfseries T\+R\+U\+E}~1\label{string__funcs_8h_aa8cecfc5c5c054d2875c03e77b7be15d}
+
+\item 
+\hypertarget{string__funcs_8h_aa93f0eb578d23995850d61f7d61c55c1}{}\#define {\bfseries F\+A\+L\+S\+E}~0\label{string__funcs_8h_aa93f0eb578d23995850d61f7d61c55c1}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{string__funcs_8h_a48eb466ac5fcf168729a86dd03508872}{}char $\ast$ {\bfseries substring} (const char $\ast$string, int start, int end)\label{string__funcs_8h_a48eb466ac5fcf168729a86dd03508872}
+
+\item 
+\hypertarget{string__funcs_8h_a25c572c3a576a3fdbba01708b36d203b}{}int {\bfseries frstch} (const char $\ast$string)\label{string__funcs_8h_a25c572c3a576a3fdbba01708b36d203b}
+
+\item 
+\hypertarget{string__funcs_8h_a7f390fa104d906aaebec3a1d38946108}{}int {\bfseries lastch} (const char $\ast$string)\label{string__funcs_8h_a7f390fa104d906aaebec3a1d38946108}
+
+\item 
+\hypertarget{string__funcs_8h_a7c6861c0d15aa53f51bcb9625dc1c176}{}void {\bfseries str\+\_\+toupper} (char $\ast$str)\label{string__funcs_8h_a7c6861c0d15aa53f51bcb9625dc1c176}
+
+\item 
+\hypertarget{string__funcs_8h_a8dac28a507a474c96a97f0d7504efd56}{}void {\bfseries str\+\_\+tolower} (char $\ast$str)\label{string__funcs_8h_a8dac28a507a474c96a97f0d7504efd56}
+
+\item 
+\hypertarget{string__funcs_8h_a26f3a617fd824249b5fcafc4e25c1dda}{}void {\bfseries rmblanks} (char $\ast$str)\label{string__funcs_8h_a26f3a617fd824249b5fcafc4e25c1dda}
+
+\item 
+\hypertarget{string__funcs_8h_aacf5fb56253088b5583d0101bd9029a0}{}void {\bfseries rmcommas} (char $\ast$str)\label{string__funcs_8h_aacf5fb56253088b5583d0101bd9029a0}
+
+\item 
+\hypertarget{string__funcs_8h_ab9e61a0d84dfe29fc50beb9905e2a540}{}int {\bfseries nextdig} (const char $\ast$chvarb, int start)\label{string__funcs_8h_ab9e61a0d84dfe29fc50beb9905e2a540}
+
+\item 
+\hypertarget{string__funcs_8h_a203be2d4416b1bd50f0f8eb5b17a6efa}{}int {\bfseries nextcomma} (const char $\ast$chvarb, int start)\label{string__funcs_8h_a203be2d4416b1bd50f0f8eb5b17a6efa}
+
+\item 
+\hypertarget{string__funcs_8h_aba2eb6f669cc66bfd5851e481a8b2976}{}int {\bfseries count\+\_\+commas} (const char $\ast$chvarb)\label{string__funcs_8h_aba2eb6f669cc66bfd5851e481a8b2976}
+
+\item 
+\hypertarget{string__funcs_8h_aa65adb9420d7a141696f4dc1c5db69e5}{}int {\bfseries nextbl} (const char $\ast$chvarb, int start)\label{string__funcs_8h_aa65adb9420d7a141696f4dc1c5db69e5}
+
+\item 
+\hypertarget{string__funcs_8h_a4289a01bb586f05f21e168c16695b582}{}char $\ast$ {\bfseries binary\+\_\+strstr} (const char $\ast$string, int length, const char $\ast$search\+String)\label{string__funcs_8h_a4289a01bb586f05f21e168c16695b582}
+
+\item 
+\hypertarget{string__funcs_8h_a547ea00df8bf83caa9cdcdefa393ce6b}{}char $\ast$ {\bfseries find\+\_\+first\+\_\+char} (char $\ast$string, char c)\label{string__funcs_8h_a547ea00df8bf83caa9cdcdefa393ce6b}
+
+\item 
+\hypertarget{string__funcs_8h_a4c3c2d793729544956733544f60f0ad9}{}char $\ast$ {\bfseries find\+\_\+last\+\_\+char} (char $\ast$string, char c)\label{string__funcs_8h_a4c3c2d793729544956733544f60f0ad9}
+
+\item 
+\hypertarget{string__funcs_8h_abeba71d1aab052b1fcc694fc49119ed6}{}int {\bfseries ends\+\_\+with} (const char $\ast$string, const char $\ast$ending)\label{string__funcs_8h_abeba71d1aab052b1fcc694fc49119ed6}
+
+\item 
+\hypertarget{string__funcs_8h_ac8efec66067e8e77c35398e1a1f2f3cb}{}void {\bfseries excise} (char $\ast$string, int start, int num)\label{string__funcs_8h_ac8efec66067e8e77c35398e1a1f2f3cb}
+
+\item 
+\hypertarget{string__funcs_8h_ab433bc53bbc261f712bc7385f7a15da6}{}void {\bfseries strinsert} (char $\ast$target, int index, const char $\ast$newstuff)\label{string__funcs_8h_ab433bc53bbc261f712bc7385f7a15da6}
+
+\item 
+\hypertarget{string__funcs_8h_a1e82268c6834c0a6c481f539271edc13}{}void {\bfseries char\+\_\+substitute} (char $\ast$target, char toreplace, char newchar)\label{string__funcs_8h_a1e82268c6834c0a6c481f539271edc13}
+
+\end{DoxyCompactItemize}

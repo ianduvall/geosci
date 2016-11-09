@@ -1,0 +1,20 @@
+\hypertarget{vfs_library_object_relational_databases}{}\section{Relational Databases}\label{vfs_library_object_relational_databases}
+\index{Relational Database Objects@{Relational Database Objects}}
+
+The realational database used is {\ttfamily sqlite3}. This database engine uses a single file to store all the tables and related data. It does not use a client/server structure, instead opting for a simpler C-\/library that does it all, and with no user names or passwords either. This design is exactly what is needed for an embedded database, such as what is needed by this project.
+
+The major effort to get this to work with an internal H\+D\+F-\/5 Dataset was to write all the standard C I/\+O functions to work with a H\+D\+F-\/5 Dataset instead, to come up a with consistent naming scheme, and to then write a set of driver functions for {\ttfamily sqlite3} to use. These driver functions are in the file {\ttfamily demovfs.\+c} and implement a standard interface that {\ttfamily sqlite3} expects.
+
+The {\ttfamily spatialite} spatial-\/relational database is implemented on top of sqlite3, and was also easily embedded into the hdf5-\/extras C-\/library with very little effort. The Vector object is implemented using these programs.\hypertarget{vfs_library_object_spatialite}{}\subsection{Spatialite}\label{vfs_library_object_spatialite}
+The {\ttfamily spatialite} spatial-\/relational database is full-\/featured, with many attributes needed for optimized spatial queries. The following summarizes this functionality.
+
+\mbox{[}Y\+E\+T\mbox{]}\hypertarget{vfs_library_object_other}{}\section{Other}\label{vfs_library_object_other}
+Yet to discuss the differences between Metdata\+Datasets and also Metadata\+I\+Files.
+
+(yet) In order to make it possible for a function to optimize its function based on the available R\+A\+M, as well as the number of processors, the following functions are available\+: \begin{DoxyItemize}
+\item G\+S\+\_\+\+Get\+Free\+Memory \item G\+S\+\_\+\+Get\+System\+Memory \item omp\+\_\+get\+\_\+num\+\_\+procs \item omp\+\_\+set\+\_\+num\+\_\+threads\end{DoxyItemize}
+The last two functions are a standard part of the {\ttfamily Open\+M\+P} multi-\/core parallel processing library that is built-\/in to {\ttfamily gcc}. There are shown here to make it clear where they are used by processing functions.
+
+There are also a variety of miscellaneous functions\+: \begin{DoxyItemize}
+\item (yet) byte\+\_\+swap \item (yet) gcpregression2 \item (yet) gcprootmeansq \item (yet) gcptransform\end{DoxyItemize}
+next\+: \hyperlink{file_format}{File Format} 

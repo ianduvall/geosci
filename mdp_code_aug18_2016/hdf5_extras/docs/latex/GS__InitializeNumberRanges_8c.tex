@@ -1,0 +1,62 @@
+\hypertarget{GS__InitializeNumberRanges_8c}{}\section{src/\+G\+S\+\_\+\+Initialize\+Number\+Ranges.c File Reference}
+\label{GS__InitializeNumberRanges_8c}\index{src/\+G\+S\+\_\+\+Initialize\+Number\+Ranges.\+c@{src/\+G\+S\+\_\+\+Initialize\+Number\+Ranges.\+c}}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$limits.\+h$>$}\\*
+{\ttfamily \#include $<$float.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include $<$complex.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}bstrlib.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gmalloc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}H5\+A\+T\+T\+R.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}globals.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{GS__InitializeNumberRanges_8c_a35d6c59c6aacffaa26090ebf2a004788}{}\#define {\bfseries R\+M\+I\+N}~0\label{GS__InitializeNumberRanges_8c_a35d6c59c6aacffaa26090ebf2a004788}
+
+\item 
+\hypertarget{GS__InitializeNumberRanges_8c_a66d21d4cc0d35bfe93b68f7a5089eb8b}{}\#define {\bfseries R\+M\+A\+X}~1\label{GS__InitializeNumberRanges_8c_a66d21d4cc0d35bfe93b68f7a5089eb8b}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{GS__InitializeNumberRanges_8c_a56293922e29b8f443d33022358bc65d0}{G\+S\+\_\+\+Initialize\+Number\+Ranges} ()
+\begin{DoxyCompactList}\small\item\em G\+S\+\_\+\+Initialize\+Number\+Ranges initializes ranges for various types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{GS__InitializeNumberRanges_8c_aeaa810f4ce1668c58eaac728fe987468}{}long int {\bfseries intranges} \mbox{[}G\+S\+\_\+\+D\+A\+T\+A\+T\+Y\+P\+E\+\_\+\+M\+A\+X+1\mbox{]}\mbox{[}2\mbox{]}\label{GS__InitializeNumberRanges_8c_aeaa810f4ce1668c58eaac728fe987468}
+
+\item 
+\hypertarget{GS__InitializeNumberRanges_8c_a6ef0d9c5c8e6ff744e5f7bd7f6dbae62}{}double {\bfseries floatranges} \mbox{[}G\+S\+\_\+\+D\+A\+T\+A\+T\+Y\+P\+E\+\_\+\+M\+A\+X+1\mbox{]}\mbox{[}2\mbox{]}\label{GS__InitializeNumberRanges_8c_a6ef0d9c5c8e6ff744e5f7bd7f6dbae62}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{GS__InitializeNumberRanges_8c_a56293922e29b8f443d33022358bc65d0}{}\index{G\+S\+\_\+\+Initialize\+Number\+Ranges.\+c@{G\+S\+\_\+\+Initialize\+Number\+Ranges.\+c}!G\+S\+\_\+\+Initialize\+Number\+Ranges@{G\+S\+\_\+\+Initialize\+Number\+Ranges}}
+\index{G\+S\+\_\+\+Initialize\+Number\+Ranges@{G\+S\+\_\+\+Initialize\+Number\+Ranges}!G\+S\+\_\+\+Initialize\+Number\+Ranges.\+c@{G\+S\+\_\+\+Initialize\+Number\+Ranges.\+c}}
+\subsubsection[{G\+S\+\_\+\+Initialize\+Number\+Ranges}]{\setlength{\rightskip}{0pt plus 5cm}int G\+S\+\_\+\+Initialize\+Number\+Ranges (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{GS__InitializeNumberRanges_8c_a56293922e29b8f443d33022358bc65d0}
+
+
+G\+S\+\_\+\+Initialize\+Number\+Ranges initializes ranges for various types. 
+
+\hyperlink{GS__InitializeNumberRanges_8c_a56293922e29b8f443d33022358bc65d0}{G\+S\+\_\+\+Initialize\+Number\+Ranges()} initializes the ranges for each of the scalar number types used in Geo\+Sci. This is needed during type conversions to avoid creating variables whose value is out-\/of-\/range.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{GS__DataConversion_8c_aea676cdbbad1f24600c362cf6d0f6e4b}{G\+S\+\_\+\+Data\+Conversion()}
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+Returns T\+R\+U\+E on success, F\+A\+L\+S\+E on failure.
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Details}
+Initializes global variables {\ttfamily intranges} and {\ttfamily floatranges} to contain the minimum and maximum numbers possible for each datatype that Geo\+Sci supports. 
+\end{DoxyParagraph}

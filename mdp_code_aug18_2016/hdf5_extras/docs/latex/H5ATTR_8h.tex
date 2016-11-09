@@ -1,0 +1,147 @@
+\hypertarget{H5ATTR_8h}{}\section{src/\+H5\+A\+T\+T\+R.h File Reference}
+\label{H5ATTR_8h}\index{src/\+H5\+A\+T\+T\+R.\+h@{src/\+H5\+A\+T\+T\+R.\+h}}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$hdf5.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}bstrlib.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gmalloc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}globals.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{H5ATTR_8h_a29c7fd6d984c66a6bc51d451487b2704}{}herr\+\_\+t {\bfseries H5\+A\+T\+T\+Rset\+\_\+attribute} (hid\+\_\+t obj\+\_\+id, \hyperlink{structtagbstring}{const\+\_\+bstring} attr\+\_\+name, hid\+\_\+t type\+\_\+id, size\+\_\+t rank, hsize\+\_\+t $\ast$dims, \hyperlink{structtagbstring}{const\+\_\+bstring} attr\+\_\+data)\label{H5ATTR_8h_a29c7fd6d984c66a6bc51d451487b2704}
+
+\item 
+herr\+\_\+t \hyperlink{H5ATTR_8h_a4df8d709a43a512c6268f81100c871f7}{H5\+A\+T\+T\+Rset\+\_\+attribute\+\_\+string} (hid\+\_\+t obj\+\_\+id, \hyperlink{structtagbstring}{const\+\_\+bstring} attr\+\_\+name, \hyperlink{structtagbstring}{const\+\_\+bstring} attr\+\_\+data, hsize\+\_\+t attr\+\_\+size, int cset)
+\begin{DoxyCompactList}\small\item\em H5\+A\+T\+T\+Rset\+\_\+attribute\+\_\+string sets the value of a string attribute. \end{DoxyCompactList}\item 
+\hypertarget{H5ATTR_8h_aea4e7fb58e747e46d15dd125b4ac34e1}{}herr\+\_\+t {\bfseries H5\+A\+T\+T\+Rget\+\_\+attribute} (hid\+\_\+t loc\+\_\+id, \hyperlink{structtagbstring}{const\+\_\+bstring} attr\+\_\+name, hid\+\_\+t type\+\_\+id, void $\ast$data)\label{H5ATTR_8h_aea4e7fb58e747e46d15dd125b4ac34e1}
+
+\item 
+hsize\+\_\+t \hyperlink{H5ATTR_8h_a85b7159f9d21b53879a14e9ae9a156ac}{H5\+A\+T\+T\+Rget\+\_\+attribute\+\_\+string} (hid\+\_\+t obj\+\_\+id, \hyperlink{structtagbstring}{const\+\_\+bstring} attr\+\_\+name, \hyperlink{structtagbstring}{bstring} data, int $\ast$cset)
+\begin{DoxyCompactList}\small\item\em H5\+A\+T\+T\+Rget\+\_\+attribute\+\_\+string gets the value of a string attribute. \end{DoxyCompactList}\item 
+\hypertarget{H5ATTR_8h_aaeb3f0c381fa7c967635ff3d30018d03}{}hsize\+\_\+t {\bfseries H5\+A\+T\+T\+Rget\+\_\+attribute\+\_\+vlen\+\_\+string\+\_\+array} (hid\+\_\+t obj\+\_\+id, const char $\ast$attr\+\_\+name, char $\ast$$\ast$$\ast$data, int $\ast$cset)\label{H5ATTR_8h_aaeb3f0c381fa7c967635ff3d30018d03}
+
+\item 
+\hypertarget{H5ATTR_8h_a91112de0b2a83603055dd049980825c2}{}herr\+\_\+t {\bfseries H5\+A\+T\+T\+Rfind\+\_\+attribute} (hid\+\_\+t loc\+\_\+id, \hyperlink{structtagbstring}{const\+\_\+bstring} attr\+\_\+name)\label{H5ATTR_8h_a91112de0b2a83603055dd049980825c2}
+
+\item 
+\hypertarget{H5ATTR_8h_a9c883a2291e6d60c45645fe0a8bac002}{}herr\+\_\+t {\bfseries H5\+A\+T\+T\+Rget\+\_\+type\+\_\+ndims} (hid\+\_\+t loc\+\_\+id, \hyperlink{structtagbstring}{const\+\_\+bstring} attr\+\_\+name, hid\+\_\+t $\ast$type\+\_\+id, H5\+T\+\_\+class\+\_\+t $\ast$class\+\_\+id, size\+\_\+t $\ast$type\+\_\+size, int $\ast$rank)\label{H5ATTR_8h_a9c883a2291e6d60c45645fe0a8bac002}
+
+\item 
+\hypertarget{H5ATTR_8h_a6060160099f834060c533e96827b43eb}{}herr\+\_\+t {\bfseries H5\+A\+T\+T\+Rget\+\_\+dims} (hid\+\_\+t loc\+\_\+id, \hyperlink{structtagbstring}{const\+\_\+bstring} attr\+\_\+name, hsize\+\_\+t $\ast$dims)\label{H5ATTR_8h_a6060160099f834060c533e96827b43eb}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{H5ATTR_8h_a85b7159f9d21b53879a14e9ae9a156ac}{}\index{H5\+A\+T\+T\+R.\+h@{H5\+A\+T\+T\+R.\+h}!H5\+A\+T\+T\+Rget\+\_\+attribute\+\_\+string@{H5\+A\+T\+T\+Rget\+\_\+attribute\+\_\+string}}
+\index{H5\+A\+T\+T\+Rget\+\_\+attribute\+\_\+string@{H5\+A\+T\+T\+Rget\+\_\+attribute\+\_\+string}!H5\+A\+T\+T\+R.\+h@{H5\+A\+T\+T\+R.\+h}}
+\subsubsection[{H5\+A\+T\+T\+Rget\+\_\+attribute\+\_\+string}]{\setlength{\rightskip}{0pt plus 5cm}hsize\+\_\+t H5\+A\+T\+T\+Rget\+\_\+attribute\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{hid\+\_\+t}]{obj\+\_\+id, }
+\item[{{\bf const\+\_\+bstring}}]{attr\+\_\+name, }
+\item[{{\bf bstring}}]{data, }
+\item[{int $\ast$}]{cset}
+\end{DoxyParamCaption}
+)}\label{H5ATTR_8h_a85b7159f9d21b53879a14e9ae9a156ac}
+
+
+H5\+A\+T\+T\+Rget\+\_\+attribute\+\_\+string gets the value of a string attribute. 
+
+\label{H5ATTR_8h_H5ATTRget_attribute_string}%
+\hypertarget{H5ATTR_8h_H5ATTRget_attribute_string}{}%
+\index{H5ATTRget_attribute_string@{H5ATTRget\+\_\+attribute\+\_\+string}}
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{H5ATTR_8h_a4df8d709a43a512c6268f81100c871f7}{H5\+A\+T\+T\+Rset\+\_\+attribute\+\_\+string()}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em obj\+\_\+id} & The id of the object to which the attribute should be attached. This is usually a group. \\
+\hline
+\mbox{\tt in}  & {\em attr\+\_\+name} & The name of the attribute to be set. \\
+\hline
+\mbox{\tt out}  & {\em attr\+\_\+data} & The value for the attribute, as a safe string. \\
+\hline
+\mbox{\tt in}  & {\em cset} & The character set for the string. Valid values are\+: H5\+T\+\_\+\+C\+S\+E\+T\+\_\+\+A\+S\+C\+I\+I and H5\+T\+\_\+\+C\+S\+E\+T\+\_\+\+U\+T\+F8.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+On success it returns the length of the string, on failure it returns E\+R\+R\+O\+R (-\/1).
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example}
+Read the value of the {\ttfamily descriptor} metadata item. 
+\begin{DoxyCode}
+1 hid\_t object\_id;
+2 bstring desc\_value=bfromcstr("");
+3 bstring descriptor = bfromcstr("descriptor");
+4 if( H5ATTRget\_attribute\_string( object\_id, descriptor,desc\_value,
+5                                 H5T\_CSET\_ASCII) == ERROR)\{
+6    printf("ERROR getting the attribute value\(\backslash\)n");
+7 \}
+8 bdestroy(descriptor);
+9 ...use the desc\_value ....
+10 bdestroy(desc\_value);
+\end{DoxyCode}
+
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Details}
+This function is normally called by G\+S\+\_\+\+Get\+String\+Attribute, which is the preferred function for getting values of string attributes. 
+\end{DoxyParagraph}
+\hypertarget{H5ATTR_8h_a4df8d709a43a512c6268f81100c871f7}{}\index{H5\+A\+T\+T\+R.\+h@{H5\+A\+T\+T\+R.\+h}!H5\+A\+T\+T\+Rset\+\_\+attribute\+\_\+string@{H5\+A\+T\+T\+Rset\+\_\+attribute\+\_\+string}}
+\index{H5\+A\+T\+T\+Rset\+\_\+attribute\+\_\+string@{H5\+A\+T\+T\+Rset\+\_\+attribute\+\_\+string}!H5\+A\+T\+T\+R.\+h@{H5\+A\+T\+T\+R.\+h}}
+\subsubsection[{H5\+A\+T\+T\+Rset\+\_\+attribute\+\_\+string}]{\setlength{\rightskip}{0pt plus 5cm}herr\+\_\+t H5\+A\+T\+T\+Rset\+\_\+attribute\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{hid\+\_\+t}]{obj\+\_\+id, }
+\item[{{\bf const\+\_\+bstring}}]{attr\+\_\+name, }
+\item[{{\bf const\+\_\+bstring}}]{attr\+\_\+data, }
+\item[{hsize\+\_\+t}]{attr\+\_\+size, }
+\item[{int}]{cset}
+\end{DoxyParamCaption}
+)}\label{H5ATTR_8h_a4df8d709a43a512c6268f81100c871f7}
+
+
+H5\+A\+T\+T\+Rset\+\_\+attribute\+\_\+string sets the value of a string attribute. 
+
+\label{H5ATTR_8h_H5ATTRset_attribute_string}%
+\hypertarget{H5ATTR_8h_H5ATTRset_attribute_string}{}%
+\index{H5ATTRset_attribute_string@{H5ATTRset\+\_\+attribute\+\_\+string}}
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{H5ATTR_8h_a85b7159f9d21b53879a14e9ae9a156ac}{H5\+A\+T\+T\+Rget\+\_\+attribute\+\_\+string()}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em obj\+\_\+id} & The id of the object to which the attribute should be attached. This is usually a group. \\
+\hline
+\mbox{\tt in}  & {\em attr\+\_\+name} & The name of the attribute to be set. \\
+\hline
+\mbox{\tt in}  & {\em attr\+\_\+data} & The value for the attribute, as a safe string. \\
+\hline
+\mbox{\tt in}  & {\em attr\+\_\+size} & The number of characters in {\ttfamily attr\+\_\+data}. \\
+\hline
+\mbox{\tt in}  & {\em cset} & The character set for the string. Valid values are\+: H5\+T\+\_\+\+C\+S\+E\+T\+\_\+\+A\+S\+C\+I\+I and H5\+T\+\_\+\+C\+S\+E\+T\+\_\+\+U\+T\+F8.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+On success it returns S\+U\+C\+C\+E\+S\+S (0), on failure it returns E\+R\+R\+O\+R (-\/1).
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example}
+Set the value of {\ttfamily descriptor} to \char`\"{}\+Arizona\char`\"{}. 
+\begin{DoxyCode}
+1 hid\_t object\_id;
+2 bstring descriptor=bfromcstr("descriptor");
+3 bstring arizona = bfromcstr("Arizona");
+4 if( H5ATTRset\_attribute\_string( object\_id, descriptor,
+5                                 arizona,7,H5T\_CSET\_ASCII)
+6                                  == ERROR)\{
+7    printf("ERROR setting the attribute value\(\backslash\)n");
+8 \}
+9 bdestroy(descriptor);
+10 bdestroy(arizona);
+\end{DoxyCode}
+
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Details}
+This function is normally called by G\+S\+\_\+\+Set\+String\+Attribute, which is the preferred function for setting values of string attributes. 
+\end{DoxyParagraph}

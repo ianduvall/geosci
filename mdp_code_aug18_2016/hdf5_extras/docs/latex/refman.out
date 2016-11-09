@@ -1,0 +1,199 @@
+\BOOKMARK [0][-]{chapter.1}{1 Data Structure Index}{}
+\BOOKMARK [1][-]{section.1.1}{1.1 Data Structures}{chapter.1}
+\BOOKMARK [0][-]{chapter.2}{2 File Index}{}
+\BOOKMARK [1][-]{section.2.1}{2.1 File List}{chapter.2}
+\BOOKMARK [0][-]{chapter.3}{3 Data Structure Documentation}{}
+\BOOKMARK [1][-]{section.3.1}{3.1 bStream Struct Reference}{chapter.3}
+\BOOKMARK [1][-]{section.3.2}{3.2 bstrList Struct Reference}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.2.1}{3.2.1 Detailed Description}{section.3.2}
+\BOOKMARK [1][-]{section.3.3}{3.3 charField Struct Reference}{chapter.3}
+\BOOKMARK [1][-]{section.3.4}{3.4 fcurl\137data Struct Reference}{chapter.3}
+\BOOKMARK [1][-]{section.3.5}{3.5 genBstrList Struct Reference}{chapter.3}
+\BOOKMARK [1][-]{section.3.6}{3.6 GEOInfo\137t Struct Reference}{chapter.3}
+\BOOKMARK [1][-]{section.3.7}{3.7 HDFFile Struct Reference}{chapter.3}
+\BOOKMARK [1][-]{section.3.8}{3.8 IFILE Struct Reference}{chapter.3}
+\BOOKMARK [1][-]{section.3.9}{3.9 tagbstring Struct Reference}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.9.1}{3.9.1 Detailed Description}{section.3.9}
+\BOOKMARK [0][-]{chapter.4}{4 File Documentation}{}
+\BOOKMARK [1][-]{section.4.1}{4.1 src/bstrlib.h File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.1.1}{4.1.1 Macro Definition Documentation}{section.4.1}
+\BOOKMARK [3][-]{subsubsection.4.1.1.1}{4.1.1.1 blk2tbstr}{subsection.4.1.1}
+\BOOKMARK [3][-]{subsubsection.4.1.1.2}{4.1.1.2 bmid2tbstr}{subsection.4.1.1}
+\BOOKMARK [3][-]{subsubsection.4.1.1.3}{4.1.1.3 btfromblkltrimws}{subsection.4.1.1}
+\BOOKMARK [3][-]{subsubsection.4.1.1.4}{4.1.1.4 btfromblkrtrimws}{subsection.4.1.1}
+\BOOKMARK [3][-]{subsubsection.4.1.1.5}{4.1.1.5 btfromblktrimws}{subsection.4.1.1}
+\BOOKMARK [3][-]{subsubsection.4.1.1.6}{4.1.1.6 btfromcstr}{subsection.4.1.1}
+\BOOKMARK [3][-]{subsubsection.4.1.1.7}{4.1.1.7 bvformata}{subsection.4.1.1}
+\BOOKMARK [1][-]{section.4.2}{4.2 src/GS\137CheckInternalName.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.2.1}{4.2.1 Function Documentation}{section.4.2}
+\BOOKMARK [3][-]{subsubsection.4.2.1.1}{4.2.1.1 GS\137CheckInternalName}{subsection.4.2.1}
+\BOOKMARK [1][-]{section.4.3}{4.3 src/GS\137ConvertFromHDFDatatype.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.3.1}{4.3.1 Function Documentation}{section.4.3}
+\BOOKMARK [3][-]{subsubsection.4.3.1.1}{4.3.1.1 GS\137ConvertFromHDFDatatype}{subsection.4.3.1}
+\BOOKMARK [1][-]{section.4.4}{4.4 src/GS\137ConvertToHDFDatatype.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.4.1}{4.4.1 Macro Definition Documentation}{section.4.4}
+\BOOKMARK [3][-]{subsubsection.4.4.1.1}{4.4.1.1 DEBUG}{subsection.4.4.1}
+\BOOKMARK [1][-]{section.4.5}{4.5 src/GS\137CreateAccessPlist.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.5.1}{4.5.1 Function Documentation}{section.4.5}
+\BOOKMARK [3][-]{subsubsection.4.5.1.1}{4.5.1.1 GS\137CreateAccessPlist}{subsection.4.5.1}
+\BOOKMARK [1][-]{section.4.6}{4.6 src/GS\137DatasetClose.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.6.1}{4.6.1 Function Documentation}{section.4.6}
+\BOOKMARK [3][-]{subsubsection.4.6.1.1}{4.6.1.1 GS\137DatasetClose}{subsection.4.6.1}
+\BOOKMARK [1][-]{section.4.7}{4.7 src/GS\137DatasetCopy.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.7.1}{4.7.1 Function Documentation}{section.4.7}
+\BOOKMARK [3][-]{subsubsection.4.7.1.1}{4.7.1.1 GS\137DatasetCopy}{subsection.4.7.1}
+\BOOKMARK [1][-]{section.4.8}{4.8 src/GS\137DatasetCreate.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.8.1}{4.8.1 Function Documentation}{section.4.8}
+\BOOKMARK [3][-]{subsubsection.4.8.1.1}{4.8.1.1 GS\137DatasetCreate}{subsection.4.8.1}
+\BOOKMARK [1][-]{section.4.9}{4.9 src/GS\137DatasetDelete.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.9.1}{4.9.1 Function Documentation}{section.4.9}
+\BOOKMARK [3][-]{subsubsection.4.9.1.1}{4.9.1.1 GS\137DatasetDelete}{subsection.4.9.1}
+\BOOKMARK [1][-]{section.4.10}{4.10 src/GS\137DatasetGetDatatype.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.10.1}{4.10.1 Function Documentation}{section.4.10}
+\BOOKMARK [3][-]{subsubsection.4.10.1.1}{4.10.1.1 GS\137DatasetGetDatatype}{subsection.4.10.1}
+\BOOKMARK [1][-]{section.4.11}{4.11 src/GS\137DatasetGetDatatypeByID.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.11.1}{4.11.1 Function Documentation}{section.4.11}
+\BOOKMARK [3][-]{subsubsection.4.11.1.1}{4.11.1.1 GS\137DatasetGetDatatypeByID}{subsection.4.11.1}
+\BOOKMARK [1][-]{section.4.12}{4.12 src/GS\137DatasetGetDimensions.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.12.1}{4.12.1 Function Documentation}{section.4.12}
+\BOOKMARK [3][-]{subsubsection.4.12.1.1}{4.12.1.1 GS\137DatasetGetDimensions}{subsection.4.12.1}
+\BOOKMARK [1][-]{section.4.13}{4.13 src/GS\137DatasetGetDimensionsByID.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.13.1}{4.13.1 Function Documentation}{section.4.13}
+\BOOKMARK [3][-]{subsubsection.4.13.1.1}{4.13.1.1 GS\137DatasetGetDimensionsByID}{subsection.4.13.1}
+\BOOKMARK [1][-]{section.4.14}{4.14 src/GS\137DatasetGetParent.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.14.1}{4.14.1 Function Documentation}{section.4.14}
+\BOOKMARK [3][-]{subsubsection.4.14.1.1}{4.14.1.1 GS\137DatasetGetParent}{subsection.4.14.1}
+\BOOKMARK [1][-]{section.4.15}{4.15 src/GS\137DatasetGetType.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.15.1}{4.15.1 Function Documentation}{section.4.15}
+\BOOKMARK [3][-]{subsubsection.4.15.1.1}{4.15.1.1 GS\137DatasetGetType}{subsection.4.15.1}
+\BOOKMARK [1][-]{section.4.16}{4.16 src/GS\137DatasetOpen.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.16.1}{4.16.1 Function Documentation}{section.4.16}
+\BOOKMARK [3][-]{subsubsection.4.16.1.1}{4.16.1.1 GS\137DatasetOpen}{subsection.4.16.1}
+\BOOKMARK [1][-]{section.4.17}{4.17 src/GS\137DatasetRead.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.17.1}{4.17.1 Function Documentation}{section.4.17}
+\BOOKMARK [3][-]{subsubsection.4.17.1.1}{4.17.1.1 GS\137DatasetRead}{subsection.4.17.1}
+\BOOKMARK [1][-]{section.4.18}{4.18 src/GS\137DatasetRename.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.18.1}{4.18.1 Function Documentation}{section.4.18}
+\BOOKMARK [3][-]{subsubsection.4.18.1.1}{4.18.1.1 GS\137DatasetRename}{subsection.4.18.1}
+\BOOKMARK [1][-]{section.4.19}{4.19 src/GS\137DatasetWrite.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.19.1}{4.19.1 Function Documentation}{section.4.19}
+\BOOKMARK [3][-]{subsubsection.4.19.1.1}{4.19.1.1 GS\137DatasetWrite}{subsection.4.19.1}
+\BOOKMARK [1][-]{section.4.20}{4.20 src/GS\137DatatypeAsString.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.20.1}{4.20.1 Function Documentation}{section.4.20}
+\BOOKMARK [3][-]{subsubsection.4.20.1.1}{4.20.1.1 GS\137DatatypeAsString}{subsection.4.20.1}
+\BOOKMARK [1][-]{section.4.21}{4.21 src/GS\137DatatypeIsComplex.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.21.1}{4.21.1 Function Documentation}{section.4.21}
+\BOOKMARK [3][-]{subsubsection.4.21.1.1}{4.21.1.1 GS\137DatatypeIsComplex}{subsection.4.21.1}
+\BOOKMARK [1][-]{section.4.22}{4.22 src/GS\137FileClose.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.22.1}{4.22.1 Function Documentation}{section.4.22}
+\BOOKMARK [3][-]{subsubsection.4.22.1.1}{4.22.1.1 GS\137FileClose}{subsection.4.22.1}
+\BOOKMARK [1][-]{section.4.23}{4.23 src/GS\137FileCloseAllObjects.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.23.1}{4.23.1 Function Documentation}{section.4.23}
+\BOOKMARK [3][-]{subsubsection.4.23.1.1}{4.23.1.1 GS\137FileCloseAllObjects}{subsection.4.23.1}
+\BOOKMARK [1][-]{section.4.24}{4.24 src/GS\137FileCommitDatatypes.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.24.1}{4.24.1 Function Documentation}{section.4.24}
+\BOOKMARK [3][-]{subsubsection.4.24.1.1}{4.24.1.1 GS\137FileCommitDatatypes}{subsection.4.24.1}
+\BOOKMARK [1][-]{section.4.25}{4.25 src/GS\137FileCopy.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.25.1}{4.25.1 Function Documentation}{section.4.25}
+\BOOKMARK [3][-]{subsubsection.4.25.1.1}{4.25.1.1 copy}{subsection.4.25.1}
+\BOOKMARK [1][-]{section.4.26}{4.26 src/GS\137FileCreate.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.26.1}{4.26.1 Function Documentation}{section.4.26}
+\BOOKMARK [3][-]{subsubsection.4.26.1.1}{4.26.1.1 GS\137FileCreate}{subsection.4.26.1}
+\BOOKMARK [1][-]{section.4.27}{4.27 src/GS\137FileCreateMetadata.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.27.1}{4.27.1 Function Documentation}{section.4.27}
+\BOOKMARK [3][-]{subsubsection.4.27.1.1}{4.27.1.1 GS\137FileCreateMetadata}{subsection.4.27.1}
+\BOOKMARK [1][-]{section.4.28}{4.28 src/GS\137FileFlush.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.28.1}{4.28.1 Function Documentation}{section.4.28}
+\BOOKMARK [3][-]{subsubsection.4.28.1.1}{4.28.1.1 GS\137FileFlush}{subsection.4.28.1}
+\BOOKMARK [1][-]{section.4.29}{4.29 src/GS\137FileIsOpen.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.29.1}{4.29.1 Function Documentation}{section.4.29}
+\BOOKMARK [3][-]{subsubsection.4.29.1.1}{4.29.1.1 GS\137FileIsOpen}{subsection.4.29.1}
+\BOOKMARK [1][-]{section.4.30}{4.30 src/GS\137FileIsWriteable.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.30.1}{4.30.1 Function Documentation}{section.4.30}
+\BOOKMARK [3][-]{subsubsection.4.30.1.1}{4.30.1.1 GS\137FileIsWriteable}{subsection.4.30.1}
+\BOOKMARK [1][-]{section.4.31}{4.31 src/GS\137FileOpen.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.31.1}{4.31.1 Function Documentation}{section.4.31}
+\BOOKMARK [3][-]{subsubsection.4.31.1.1}{4.31.1.1 GS\137FileOpen}{subsection.4.31.1}
+\BOOKMARK [1][-]{section.4.32}{4.32 src/GS\137FileReport.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.32.1}{4.32.1 Function Documentation}{section.4.32}
+\BOOKMARK [3][-]{subsubsection.4.32.1.1}{4.32.1.1 GS\137FileReport}{subsection.4.32.1}
+\BOOKMARK [3][-]{subsubsection.4.32.1.2}{4.32.1.2 GS\137SummarizeGroup}{subsection.4.32.1}
+\BOOKMARK [1][-]{section.4.33}{4.33 src/GS\137GetHDF5Type.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.33.1}{4.33.1 Function Documentation}{section.4.33}
+\BOOKMARK [3][-]{subsubsection.4.33.1.1}{4.33.1.1 GS\137GetHDF5Type}{subsection.4.33.1}
+\BOOKMARK [1][-]{section.4.34}{4.34 src/GS\137GetStringAttribute.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.34.1}{4.34.1 Function Documentation}{section.4.34}
+\BOOKMARK [3][-]{subsubsection.4.34.1.1}{4.34.1.1 GS\137GetStringAttribute}{subsection.4.34.1}
+\BOOKMARK [1][-]{section.4.35}{4.35 src/GS\137GetValidFileID.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.35.1}{4.35.1 Function Documentation}{section.4.35}
+\BOOKMARK [3][-]{subsubsection.4.35.1.1}{4.35.1.1 GS\137GetValidFileID}{subsection.4.35.1}
+\BOOKMARK [1][-]{section.4.36}{4.36 src/GS\137GroupClose.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.36.1}{4.36.1 Function Documentation}{section.4.36}
+\BOOKMARK [3][-]{subsubsection.4.36.1.1}{4.36.1.1 GS\137GroupClose}{subsection.4.36.1}
+\BOOKMARK [1][-]{section.4.37}{4.37 src/GS\137GroupCloseAllObjects.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.37.1}{4.37.1 Function Documentation}{section.4.37}
+\BOOKMARK [3][-]{subsubsection.4.37.1.1}{4.37.1.1 GS\137GroupCloseAllObjects}{subsection.4.37.1}
+\BOOKMARK [1][-]{section.4.38}{4.38 src/GS\137GroupCopy.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.38.1}{4.38.1 Function Documentation}{section.4.38}
+\BOOKMARK [3][-]{subsubsection.4.38.1.1}{4.38.1.1 GS\137GroupCopy}{subsection.4.38.1}
+\BOOKMARK [1][-]{section.4.39}{4.39 src/GS\137GroupCreate.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.39.1}{4.39.1 Function Documentation}{section.4.39}
+\BOOKMARK [3][-]{subsubsection.4.39.1.1}{4.39.1.1 GS\137GroupCreate}{subsection.4.39.1}
+\BOOKMARK [1][-]{section.4.40}{4.40 src/GS\137GroupDelete.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.40.1}{4.40.1 Function Documentation}{section.4.40}
+\BOOKMARK [3][-]{subsubsection.4.40.1.1}{4.40.1.1 GS\137GroupDelete}{subsection.4.40.1}
+\BOOKMARK [1][-]{section.4.41}{4.41 src/GS\137GroupOpen.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.41.1}{4.41.1 Function Documentation}{section.4.41}
+\BOOKMARK [3][-]{subsubsection.4.41.1.1}{4.41.1.1 GS\137GroupOpen}{subsection.4.41.1}
+\BOOKMARK [1][-]{section.4.42}{4.42 src/GS\137GroupRename.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.42.1}{4.42.1 Function Documentation}{section.4.42}
+\BOOKMARK [3][-]{subsubsection.4.42.1.1}{4.42.1.1 GS\137GroupRename}{subsection.4.42.1}
+\BOOKMARK [1][-]{section.4.43}{4.43 src/GS\137GroupSetType.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.43.1}{4.43.1 Function Documentation}{section.4.43}
+\BOOKMARK [3][-]{subsubsection.4.43.1.1}{4.43.1.1 GS\137GroupSetType}{subsection.4.43.1}
+\BOOKMARK [1][-]{section.4.44}{4.44 src/GS\137HDFDatatypeClose.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.44.1}{4.44.1 Function Documentation}{section.4.44}
+\BOOKMARK [3][-]{subsubsection.4.44.1.1}{4.44.1.1 GS\137HDFDatatypeClose}{subsection.4.44.1}
+\BOOKMARK [1][-]{section.4.45}{4.45 src/GS\137ObjectGetChildren.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.45.1}{4.45.1 Function Documentation}{section.4.45}
+\BOOKMARK [3][-]{subsubsection.4.45.1.1}{4.45.1.1 getcount\137it}{subsection.4.45.1}
+\BOOKMARK [1][-]{section.4.46}{4.46 src/GS\137ObjectIsDataset.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.46.1}{4.46.1 Function Documentation}{section.4.46}
+\BOOKMARK [3][-]{subsubsection.4.46.1.1}{4.46.1.1 GS\137ObjectIsDataset}{subsection.4.46.1}
+\BOOKMARK [1][-]{section.4.47}{4.47 src/GS\137ObjectIsDatasetByID.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.47.1}{4.47.1 Function Documentation}{section.4.47}
+\BOOKMARK [3][-]{subsubsection.4.47.1.1}{4.47.1.1 GS\137ObjectIsDatasetByID}{subsection.4.47.1}
+\BOOKMARK [1][-]{section.4.48}{4.48 src/GS\137ObjectIsFile.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.48.1}{4.48.1 Function Documentation}{section.4.48}
+\BOOKMARK [3][-]{subsubsection.4.48.1.1}{4.48.1.1 GS\137ObjectIsFile}{subsection.4.48.1}
+\BOOKMARK [1][-]{section.4.49}{4.49 src/GS\137ObjectIsGroup.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.49.1}{4.49.1 Function Documentation}{section.4.49}
+\BOOKMARK [3][-]{subsubsection.4.49.1.1}{4.49.1.1 GS\137ObjectIsGroup}{subsection.4.49.1}
+\BOOKMARK [1][-]{section.4.50}{4.50 src/GS\137ObjectIsGroupByID.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.50.1}{4.50.1 Function Documentation}{section.4.50}
+\BOOKMARK [3][-]{subsubsection.4.50.1.1}{4.50.1.1 GS\137ObjectIsGroupByID}{subsection.4.50.1}
+\BOOKMARK [1][-]{section.4.51}{4.51 src/GS\137ObjectIsIFile.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.51.1}{4.51.1 Function Documentation}{section.4.51}
+\BOOKMARK [3][-]{subsubsection.4.51.1.1}{4.51.1.1 GS\137ObjectIsIFile}{subsection.4.51.1}
+\BOOKMARK [1][-]{section.4.52}{4.52 src/GS\137Pathname.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.52.1}{4.52.1 Function Documentation}{section.4.52}
+\BOOKMARK [3][-]{subsubsection.4.52.1.1}{4.52.1.1 GS\137PathnameNodir}{subsection.4.52.1}
+\BOOKMARK [1][-]{section.4.53}{4.53 src/GS\137SetCacheSize.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.53.1}{4.53.1 Function Documentation}{section.4.53}
+\BOOKMARK [3][-]{subsubsection.4.53.1.1}{4.53.1.1 GS\137SetCacheSize}{subsection.4.53.1}
+\BOOKMARK [1][-]{section.4.54}{4.54 src/GS\137SetStringAttribute.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.54.1}{4.54.1 Macro Definition Documentation}{section.4.54}
+\BOOKMARK [3][-]{subsubsection.4.54.1.1}{4.54.1.1 DEBUG}{subsection.4.54.1}
+\BOOKMARK [1][-]{section.4.55}{4.55 src/GS\137Time.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.55.1}{4.55.1 Function Documentation}{section.4.55}
+\BOOKMARK [3][-]{subsubsection.4.55.1.1}{4.55.1.1 GS\137Time}{subsection.4.55.1}
+\BOOKMARK [1][-]{section.4.56}{4.56 src/GS\137ValidID.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.56.1}{4.56.1 Function Documentation}{section.4.56}
+\BOOKMARK [3][-]{subsubsection.4.56.1.1}{4.56.1.1 GS\137ValidID}{subsection.4.56.1}
+\BOOKMARK [1][-]{section.4.57}{4.57 src/H5ATTR.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.57.1}{4.57.1 Function Documentation}{section.4.57}
+\BOOKMARK [3][-]{subsubsection.4.57.1.1}{4.57.1.1 H5ATTRget\137attribute\137string}{subsection.4.57.1}
+\BOOKMARK [3][-]{subsubsection.4.57.1.2}{4.57.1.2 H5ATTRset\137attribute\137string}{subsection.4.57.1}
+\BOOKMARK [1][-]{section.4.58}{4.58 src/IFileOpen.c File Reference}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.58.1}{4.58.1 Function Documentation}{section.4.58}
+\BOOKMARK [3][-]{subsubsection.4.58.1.1}{4.58.1.1 IFileOpen}{subsection.4.58.1}

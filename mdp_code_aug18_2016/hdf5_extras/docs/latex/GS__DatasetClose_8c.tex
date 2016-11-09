@@ -1,0 +1,52 @@
+\hypertarget{GS__DatasetClose_8c}{\section{src/\+G\+S\+\_\+\+Dataset\+Close.c File Reference}
+\label{GS__DatasetClose_8c}\index{src/\+G\+S\+\_\+\+Dataset\+Close.\+c@{src/\+G\+S\+\_\+\+Dataset\+Close.\+c}}
+}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}bstrlib.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gmalloc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}H5\+A\+T\+T\+R.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}globals.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+hid\+\_\+t \hyperlink{GS__DatasetClose_8c_a0e45ff4ddce2aa6a3b9bfc2fed6db732}{G\+S\+\_\+\+Dataset\+Close} (hid\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em G\+S\+\_\+\+Dataset\+Close closes a dataset in a Geo\+Sci datafile. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{GS__DatasetClose_8c_a0e45ff4ddce2aa6a3b9bfc2fed6db732}{\index{G\+S\+\_\+\+Dataset\+Close.\+c@{G\+S\+\_\+\+Dataset\+Close.\+c}!G\+S\+\_\+\+Dataset\+Close@{G\+S\+\_\+\+Dataset\+Close}}
+\index{G\+S\+\_\+\+Dataset\+Close@{G\+S\+\_\+\+Dataset\+Close}!G\+S\+\_\+\+Dataset\+Close.\+c@{G\+S\+\_\+\+Dataset\+Close.\+c}}
+\subsubsection[{G\+S\+\_\+\+Dataset\+Close}]{\setlength{\rightskip}{0pt plus 5cm}hid\+\_\+t G\+S\+\_\+\+Dataset\+Close (
+\begin{DoxyParamCaption}
+\item[{hid\+\_\+t}]{id}
+\end{DoxyParamCaption}
+)}}\label{GS__DatasetClose_8c_a0e45ff4ddce2aa6a3b9bfc2fed6db732}
+
+
+G\+S\+\_\+\+Dataset\+Close closes a dataset in a Geo\+Sci datafile. 
+
+\hyperlink{GS__DatasetClose_8c_a0e45ff4ddce2aa6a3b9bfc2fed6db732}{G\+S\+\_\+\+Dataset\+Close()} closes a dataset in a Geo\+Sci file. This is meant to work with any type of dataset.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{GS__DatasetOpen_8c_aee86e45ef56ab3672a06a8358ceddd22}{G\+S\+\_\+\+Dataset\+Open()}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em id} & A handle for the dataset. Perhaps from \hyperlink{GS__DatasetOpen_8c_aee86e45ef56ab3672a06a8358ceddd22}{G\+S\+\_\+\+Dataset\+Open()}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily T\+R\+U\+E} on sucess, {\ttfamily F\+A\+L\+S\+E} on failure.
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example}
+Close an image raster dataset\+: 
+\begin{DoxyCode}
+hid\_t raster\_id;
+\textcolor{keywordflow}{if}(!\hyperlink{GS__DatasetClose_8c_a0e45ff4ddce2aa6a3b9bfc2fed6db732}{GS\_DatasetClose}(raster\_id)) \{
+  printf(\textcolor{stringliteral}{"Failed to close dataset.\(\backslash\)n"});
+\}
+\end{DoxyCode}
+ 
+\end{DoxyParagraph}

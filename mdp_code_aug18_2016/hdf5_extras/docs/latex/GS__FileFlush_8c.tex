@@ -1,0 +1,54 @@
+\hypertarget{GS__FileFlush_8c}{\section{src/\+G\+S\+\_\+\+File\+Flush.c File Reference}
+\label{GS__FileFlush_8c}\index{src/\+G\+S\+\_\+\+File\+Flush.\+c@{src/\+G\+S\+\_\+\+File\+Flush.\+c}}
+}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}bstrlib.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gmalloc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}H5\+A\+T\+T\+R.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}globals.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{GS__FileFlush_8c_a8cd208fe090b959fe3142a3fc93cab14}{G\+S\+\_\+\+File\+Flush} (hid\+\_\+t object\+\_\+id)
+\begin{DoxyCompactList}\small\item\em G\+S\+\_\+\+File\+Flush forces datafile to be updated. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{GS__FileFlush_8c_a8cd208fe090b959fe3142a3fc93cab14}{\index{G\+S\+\_\+\+File\+Flush.\+c@{G\+S\+\_\+\+File\+Flush.\+c}!G\+S\+\_\+\+File\+Flush@{G\+S\+\_\+\+File\+Flush}}
+\index{G\+S\+\_\+\+File\+Flush@{G\+S\+\_\+\+File\+Flush}!G\+S\+\_\+\+File\+Flush.\+c@{G\+S\+\_\+\+File\+Flush.\+c}}
+\subsubsection[{G\+S\+\_\+\+File\+Flush}]{\setlength{\rightskip}{0pt plus 5cm}int G\+S\+\_\+\+File\+Flush (
+\begin{DoxyParamCaption}
+\item[{hid\+\_\+t}]{object\+\_\+id}
+\end{DoxyParamCaption}
+)}}\label{GS__FileFlush_8c_a8cd208fe090b959fe3142a3fc93cab14}
+
+
+G\+S\+\_\+\+File\+Flush forces datafile to be updated. 
+
+\hyperlink{GS__FileFlush_8c_a8cd208fe090b959fe3142a3fc93cab14}{G\+S\+\_\+\+File\+Flush()} forces all changes to a file to be flushed to the hard drive, forcing them to occur rather than waiting in a \char`\"{}buffered\char`\"{} state.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{GS__FileOpen_8c_ab917a3df2cea2e72a959d8e72d8b7f5d}{G\+S\+\_\+\+File\+Open()}, \hyperlink{GS__FileClose_8c_a1e9f0a9400fffd99b282b1dd651fa63d}{G\+S\+\_\+\+File\+Close()}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em object\+\_\+id} & I\+D of a file, an image, or any other valid object in a Geo\+Sci datafile.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns {\ttfamily T\+R\+U\+E} on success, {\ttfamily F\+A\+L\+S\+E} otherwise.
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example}
+After writing to an image, make sure all changes are written to disk. 
+\begin{DoxyCode}
+hid\_t image\_id;
+\hyperlink{structtagbstring}{bstring} image\_name=bfromcstr(\textcolor{stringliteral}{"Image3"});
+image\_id=GS\_ImageOpen(file\_id,image\_name);
+bdestroy(image\_name);
+     ... modify the image ....
+\hyperlink{GS__FileFlush_8c_a8cd208fe090b959fe3142a3fc93cab14}{GS\_FileFlush}(image\_id);
+\end{DoxyCode}
+ Note that we could have used file\+\_\+id as well. 
+\end{DoxyParagraph}

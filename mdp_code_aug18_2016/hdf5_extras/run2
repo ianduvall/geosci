@@ -1,0 +1,5 @@
+#!/bin/bash
+rm *h5
+rm test2
+make test2
+test2
