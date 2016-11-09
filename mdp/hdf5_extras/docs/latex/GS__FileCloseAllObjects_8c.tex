@@ -1,0 +1,54 @@
+\hypertarget{GS__FileCloseAllObjects_8c}{\section{src/\+G\+S\+\_\+\+File\+Close\+All\+Objects.c File Reference}
+\label{GS__FileCloseAllObjects_8c}\index{src/\+G\+S\+\_\+\+File\+Close\+All\+Objects.\+c@{src/\+G\+S\+\_\+\+File\+Close\+All\+Objects.\+c}}
+}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}bstrlib.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gmalloc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}H5\+A\+T\+T\+R.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}globals.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{GS__FileCloseAllObjects_8c_aaaa68f07926fd571bed2a9d83855dd6c}{G\+S\+\_\+\+File\+Close\+All\+Objects} (hid\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em G\+S\+\_\+\+File\+Close\+All\+Objects closes all open objects in a file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{GS__FileCloseAllObjects_8c_aaaa68f07926fd571bed2a9d83855dd6c}{\index{G\+S\+\_\+\+File\+Close\+All\+Objects.\+c@{G\+S\+\_\+\+File\+Close\+All\+Objects.\+c}!G\+S\+\_\+\+File\+Close\+All\+Objects@{G\+S\+\_\+\+File\+Close\+All\+Objects}}
+\index{G\+S\+\_\+\+File\+Close\+All\+Objects@{G\+S\+\_\+\+File\+Close\+All\+Objects}!G\+S\+\_\+\+File\+Close\+All\+Objects.\+c@{G\+S\+\_\+\+File\+Close\+All\+Objects.\+c}}
+\subsubsection[{G\+S\+\_\+\+File\+Close\+All\+Objects}]{\setlength{\rightskip}{0pt plus 5cm}int G\+S\+\_\+\+File\+Close\+All\+Objects (
+\begin{DoxyParamCaption}
+\item[{hid\+\_\+t}]{id}
+\end{DoxyParamCaption}
+)}}\label{GS__FileCloseAllObjects_8c_aaaa68f07926fd571bed2a9d83855dd6c}
+
+
+G\+S\+\_\+\+File\+Close\+All\+Objects closes all open objects in a file. 
+
+\hyperlink{GS__FileCloseAllObjects_8c_aaaa68f07926fd571bed2a9d83855dd6c}{G\+S\+\_\+\+File\+Close\+All\+Objects()} closes all open objects in a Geo\+Scifile.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{GS__FileClose_8c_a1e9f0a9400fffd99b282b1dd651fa63d}{G\+S\+\_\+\+File\+Close()}, \hyperlink{GS__FileOpen_8c_ab917a3df2cea2e72a959d8e72d8b7f5d}{G\+S\+\_\+\+File\+Open()}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em id} & The handle of the open file, or any object in the file.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily T\+R\+U\+E} is returned on success, {\ttfamily F\+A\+L\+S\+E} otherwise.
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example}
+Close all objects in an already-\/open file\+: 
+\begin{DoxyCode}
+hid\_t file\_id;
+\textcolor{keywordflow}{if}(\hyperlink{GS__FileCloseAllObjects_8c_aaaa68f07926fd571bed2a9d83855dd6c}{GS\_FileCloseAllObjects}( file\_id ))\{
+    printf(\textcolor{stringliteral}{"success.\(\backslash\)n"});
+\} \textcolor{keywordflow}{else} \{
+    printf(\textcolor{stringliteral}{"failure.\(\backslash\)n"});
+\}
+\end{DoxyCode}
+ 
+\end{DoxyParagraph}

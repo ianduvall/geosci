@@ -1,0 +1,76 @@
+\hypertarget{GS__ConvertFromHDFDatatype_8c}{\section{src/\+G\+S\+\_\+\+Convert\+From\+H\+D\+F\+Datatype.c File Reference}
+\label{GS__ConvertFromHDFDatatype_8c}\index{src/\+G\+S\+\_\+\+Convert\+From\+H\+D\+F\+Datatype.\+c@{src/\+G\+S\+\_\+\+Convert\+From\+H\+D\+F\+Datatype.\+c}}
+}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}bstrlib.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gmalloc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}H5\+A\+T\+T\+R.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}globals.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{GS__ConvertFromHDFDatatype_8c_a8fe83ac76edc595f6b98cd4a4127aed5}{\#define {\bfseries E\+R\+R\+O\+R}~-\/1}\label{GS__ConvertFromHDFDatatype_8c_a8fe83ac76edc595f6b98cd4a4127aed5}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{GS__ConvertFromHDFDatatype_8c_ab450cfcb4cec9d09153d63bd4cf5d697}{G\+S\+\_\+\+Convert\+From\+H\+D\+F\+Datatype} (hid\+\_\+t datatype)
+\begin{DoxyCompactList}\small\item\em G\+S\+\_\+\+Convert\+From\+H\+D\+F\+Datatype returns the Geo\+Sci datatype for the given H\+D\+F datatype. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{GS__ConvertFromHDFDatatype_8c_ab450cfcb4cec9d09153d63bd4cf5d697}{\index{G\+S\+\_\+\+Convert\+From\+H\+D\+F\+Datatype.\+c@{G\+S\+\_\+\+Convert\+From\+H\+D\+F\+Datatype.\+c}!G\+S\+\_\+\+Convert\+From\+H\+D\+F\+Datatype@{G\+S\+\_\+\+Convert\+From\+H\+D\+F\+Datatype}}
+\index{G\+S\+\_\+\+Convert\+From\+H\+D\+F\+Datatype@{G\+S\+\_\+\+Convert\+From\+H\+D\+F\+Datatype}!G\+S\+\_\+\+Convert\+From\+H\+D\+F\+Datatype.\+c@{G\+S\+\_\+\+Convert\+From\+H\+D\+F\+Datatype.\+c}}
+\subsubsection[{G\+S\+\_\+\+Convert\+From\+H\+D\+F\+Datatype}]{\setlength{\rightskip}{0pt plus 5cm}int G\+S\+\_\+\+Convert\+From\+H\+D\+F\+Datatype (
+\begin{DoxyParamCaption}
+\item[{hid\+\_\+t}]{datatype}
+\end{DoxyParamCaption}
+)}}\label{GS__ConvertFromHDFDatatype_8c_ab450cfcb4cec9d09153d63bd4cf5d697}
+
+
+G\+S\+\_\+\+Convert\+From\+H\+D\+F\+Datatype returns the Geo\+Sci datatype for the given H\+D\+F datatype. 
+
+\hyperlink{hdf5mine_8h_adda18a93c5b245ba8848b73cc28add9b}{G\+S\+\_\+\+Convert\+To\+H\+D\+F\+Datatype()} returns the Geo\+Sci datatype for the given H\+D\+F datatype
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em datatype} & A handle to an H\+D\+F5 datatype.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The Geo\+Sci typecode is returned, and is 0 if invalid. Valid datatypes are\+:~\newline
+{\ttfamily G\+S\+\_\+\+D\+A\+T\+A\+T\+Y\+P\+E\+\_\+\+U\+I1} (Unsigned Integer, 1-\/bit)~\newline
+{\ttfamily G\+S\+\_\+\+D\+A\+T\+A\+T\+Y\+P\+E\+\_\+\+U\+I8} (Unsigned Integer, 8-\/bit)~\newline
+{\ttfamily G\+S\+\_\+\+D\+A\+T\+A\+T\+Y\+P\+E\+\_\+\+S\+I8} (Signed Integer, 8-\/bit)~\newline
+{\ttfamily G\+S\+\_\+\+D\+A\+T\+A\+T\+Y\+P\+E\+\_\+\+C\+I8} (Complex Integer, 8-\/bit (not supported))~\newline
+{\ttfamily G\+S\+\_\+\+D\+A\+T\+A\+T\+Y\+P\+E\+\_\+\+U\+I16} (Unsigned Integer, 16-\/bit)~\newline
+{\ttfamily G\+S\+\_\+\+D\+A\+T\+A\+T\+Y\+P\+E\+\_\+\+S\+I16} (Signed Integer, 16-\/bit)~\newline
+{\ttfamily G\+S\+\_\+\+D\+A\+T\+A\+T\+Y\+P\+E\+\_\+\+C\+I16} (Complex Integer, 16-\/bit)~\newline
+{\ttfamily G\+S\+\_\+\+D\+A\+T\+A\+T\+Y\+P\+E\+\_\+\+U\+I32} (Unsigned Integer, 32-\/bit)~\newline
+{\ttfamily G\+S\+\_\+\+D\+A\+T\+A\+T\+Y\+P\+E\+\_\+\+S\+I32} (Signed Integer, 32-\/bit)~\newline
+{\ttfamily G\+S\+\_\+\+D\+A\+T\+A\+T\+Y\+P\+E\+\_\+\+C\+I32} (Complex Integer, 32-\/bit)~\newline
+{\ttfamily G\+S\+\_\+\+D\+A\+T\+A\+T\+Y\+P\+E\+\_\+\+C\+I64} (Complex Integer, 64-\/bit)~\newline
+{\ttfamily G\+S\+\_\+\+D\+A\+T\+A\+T\+Y\+P\+E\+\_\+\+R32} (Real, 32-\/bit)~\newline
+{\ttfamily G\+S\+\_\+\+D\+A\+T\+A\+T\+Y\+P\+E\+\_\+\+R64} (Real, 64-\/bit)~\newline
+{\ttfamily G\+S\+\_\+\+D\+A\+T\+A\+T\+Y\+P\+E\+\_\+\+C64} (Complex, 64-\/bit)~\newline
+{\ttfamily G\+S\+\_\+\+D\+A\+T\+A\+T\+Y\+P\+E\+\_\+\+C128} (Complex, 128-\/bit)~\newline
+{\ttfamily G\+S\+\_\+\+D\+A\+T\+A\+T\+Y\+P\+E\+\_\+\+U\+I64} (Unsigned Integer, 64-\/bit)~\newline
+{\ttfamily G\+S\+\_\+\+D\+A\+T\+A\+T\+Y\+P\+E\+\_\+\+S\+I64} (Signed Integer, 64-\/bit)
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example}
+Get the Geo\+Sci equivalent of the H\+D\+F5 type H5\+T\+\_\+\+N\+A\+T\+I\+V\+E\+\_\+\+I\+N\+T8\+: 
+\begin{DoxyCode}
+\textcolor{keywordtype}{int} gs\_type;
+gs\_type = \hyperlink{GS__ConvertFromHDFDatatype_8c_ab450cfcb4cec9d09153d63bd4cf5d697}{GS\_ConvertFromHDFDatatype}(H5T\_NATIVE\_INT8);
+\textcolor{keywordflow}{if}(!gs\_type) \{
+   printf(\textcolor{stringliteral}{"GS\_ConvertFromHDFDatatype failure\(\backslash\)n"});
+\}
+\end{DoxyCode}
+
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Details}
+Currently this checks against the H\+D\+F5 \char`\"{}\+N\+A\+T\+I\+V\+E\char`\"{} datatypes. I suspect this will not work if the data is in a different byte order. Need to fix this. (L\+E\+P\+: Aug 9, 2014). 
+\end{DoxyParagraph}

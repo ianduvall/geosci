@@ -1,0 +1,67 @@
+\hypertarget{GS__FileCreateMetadata_8c}{\section{src/\+G\+S\+\_\+\+File\+Create\+Metadata.c File Reference}
+\label{GS__FileCreateMetadata_8c}\index{src/\+G\+S\+\_\+\+File\+Create\+Metadata.\+c@{src/\+G\+S\+\_\+\+File\+Create\+Metadata.\+c}}
+}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}bstrlib.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gmalloc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}H5\+A\+T\+T\+R.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}globals.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{GS__FileCreateMetadata_8c_af6756c2c0e953c726dc7aa04172b5543}{G\+S\+\_\+\+File\+Create\+Metadata} (hid\+\_\+t file\+\_\+id, \hyperlink{structtagbstring}{const\+\_\+bstring} descriptor)
+\begin{DoxyCompactList}\small\item\em \hyperlink{GS__FileCreateMetadata_8c_af6756c2c0e953c726dc7aa04172b5543}{G\+S\+\_\+\+File\+Create\+Metadata()} Creates metadata in a Geo\+Sci datafile. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{GS__FileCreateMetadata_8c_af6756c2c0e953c726dc7aa04172b5543}{\index{G\+S\+\_\+\+File\+Create\+Metadata.\+c@{G\+S\+\_\+\+File\+Create\+Metadata.\+c}!G\+S\+\_\+\+File\+Create\+Metadata@{G\+S\+\_\+\+File\+Create\+Metadata}}
+\index{G\+S\+\_\+\+File\+Create\+Metadata@{G\+S\+\_\+\+File\+Create\+Metadata}!G\+S\+\_\+\+File\+Create\+Metadata.\+c@{G\+S\+\_\+\+File\+Create\+Metadata.\+c}}
+\subsubsection[{G\+S\+\_\+\+File\+Create\+Metadata}]{\setlength{\rightskip}{0pt plus 5cm}int G\+S\+\_\+\+File\+Create\+Metadata (
+\begin{DoxyParamCaption}
+\item[{hid\+\_\+t}]{file\+\_\+id, }
+\item[{{\bf const\+\_\+bstring}}]{descriptor}
+\end{DoxyParamCaption}
+)}}\label{GS__FileCreateMetadata_8c_af6756c2c0e953c726dc7aa04172b5543}
+
+
+\hyperlink{GS__FileCreateMetadata_8c_af6756c2c0e953c726dc7aa04172b5543}{G\+S\+\_\+\+File\+Create\+Metadata()} Creates metadata in a Geo\+Sci datafile. 
+
+\hyperlink{GS__FileCreateMetadata_8c_af6756c2c0e953c726dc7aa04172b5543}{G\+S\+\_\+\+File\+Create\+Metadata()} creates a new metadata group to store per-\/file metadata in, it then fills them in with default values, and the file descriptor string that is passed in.
+
+\begin{DoxySeeAlso}{See also}
+File\+Create()
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em file\+\_\+id} & The file I\+D \\
+\hline
+\mbox{\tt in}  & {\em descriptor} & A character string describing the file contents.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T\+R\+U\+E on success, F\+A\+L\+S\+E on failure.
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example\+:}
+Create a new file named \char`\"{}av1.\+h5\char`\"{} and set it's file metadata, in particular make the file descriptor string be \char`\"{}\+Aviris over Boston, M\+A\char`\"{}. 
+\begin{DoxyCode}
+hid\_t file\_id;
+\hyperlink{structtagbstring}{bstring} filename = bfromcstr(\textcolor{stringliteral}{"av1.h5"});
+file\_id = GS\_FileCreateEmpty(filename);
+bdestroy(filename);
+\textcolor{keywordflow}{if}(file\_id > 0) \{
+   \hyperlink{structtagbstring}{bstring} description = bfromcstr(\textcolor{stringliteral}{"Aviris over Boston, MA"});
+   \textcolor{keywordflow}{if}(\hyperlink{GS__FileCreateMetadata_8c_af6756c2c0e953c726dc7aa04172b5543}{GS\_FileCreateMetadata}(file\_id,description)\{
+      printf(\textcolor{stringliteral}{"success\(\backslash\)n"});
+   \}
+   bdestroy(description);
+\}
+\end{DoxyCode}
+
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Details\+:}
+The file metadata is stored in a group named \char`\"{}/\+\_\+\+Header\char`\"{}. The file metadata items are\+: {\ttfamily grouptype} (= {\ttfamily \char`\"{}\+Metadata\char`\"{}}), {\ttfamily filetype} (= {\ttfamily \char`\"{}\+G\+E\+O\+S\+C\+I\char`\"{}}), {\ttfamily software\+\_\+version} (= {\ttfamily \char`\"{}\+V0.\+0.\+1\char`\"{}}), {\ttfamily creation\+\_\+datetime}, {\ttfamily last\+\_\+update\+\_\+datetime}, {\ttfamily history}, and {\ttfamily descriptor}, the last one being set by a call to this function.
+
+Note that until the file metadata is set up correctly the file is not recognized as a valid Geo\+Sci file, and so most functions in this library will not operate on it successfully. Because of this, the file creation functions, such as \hyperlink{hdf5mine_8h_af07a914cd15aa25e3f6d92fe7ae005fa}{G\+S\+\_\+\+File\+Create} and G\+S\+\_\+\+File\+Create\+Empty call this function as part of the file creation process. 
+\end{DoxyParagraph}

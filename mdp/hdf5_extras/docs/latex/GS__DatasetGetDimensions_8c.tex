@@ -1,0 +1,70 @@
+\hypertarget{GS__DatasetGetDimensions_8c}{\section{src/\+G\+S\+\_\+\+Dataset\+Get\+Dimensions.c File Reference}
+\label{GS__DatasetGetDimensions_8c}\index{src/\+G\+S\+\_\+\+Dataset\+Get\+Dimensions.\+c@{src/\+G\+S\+\_\+\+Dataset\+Get\+Dimensions.\+c}}
+}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}bstrlib.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gmalloc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}H5\+A\+T\+T\+R.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}globals.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{GS__DatasetGetDimensions_8c_a977e72eef268bcdeb190bf640f2755ed}{G\+S\+\_\+\+Dataset\+Get\+Dimensions} (hid\+\_\+t id, \hyperlink{structtagbstring}{const\+\_\+bstring} name, int $\ast$$\ast$size)
+\begin{DoxyCompactList}\small\item\em G\+S\+\_\+\+Dataset\+Get\+Dimensions returns the current dimensions for the Dataset. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{GS__DatasetGetDimensions_8c_a977e72eef268bcdeb190bf640f2755ed}{\index{G\+S\+\_\+\+Dataset\+Get\+Dimensions.\+c@{G\+S\+\_\+\+Dataset\+Get\+Dimensions.\+c}!G\+S\+\_\+\+Dataset\+Get\+Dimensions@{G\+S\+\_\+\+Dataset\+Get\+Dimensions}}
+\index{G\+S\+\_\+\+Dataset\+Get\+Dimensions@{G\+S\+\_\+\+Dataset\+Get\+Dimensions}!G\+S\+\_\+\+Dataset\+Get\+Dimensions.\+c@{G\+S\+\_\+\+Dataset\+Get\+Dimensions.\+c}}
+\subsubsection[{G\+S\+\_\+\+Dataset\+Get\+Dimensions}]{\setlength{\rightskip}{0pt plus 5cm}int G\+S\+\_\+\+Dataset\+Get\+Dimensions (
+\begin{DoxyParamCaption}
+\item[{hid\+\_\+t}]{id, }
+\item[{{\bf const\+\_\+bstring}}]{name, }
+\item[{int $\ast$$\ast$}]{size}
+\end{DoxyParamCaption}
+)}}\label{GS__DatasetGetDimensions_8c_a977e72eef268bcdeb190bf640f2755ed}
+
+
+G\+S\+\_\+\+Dataset\+Get\+Dimensions returns the current dimensions for the Dataset. 
+
+G\+S\+\_\+\+Dataset\+Get\+Dimensions returns the current dimensions for the Dataset.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{GS__DatasetGetDatatype_8c_aceeb9596f55ad32a66123ac887c2c434}{G\+S\+\_\+\+Dataset\+Get\+Datatype()}, \hyperlink{GS__DatasetOpen_8c_aee86e45ef56ab3672a06a8358ceddd22}{G\+S\+\_\+\+Dataset\+Open()}, \hyperlink{GS__DatasetCreate_8c_ae0ffd3948a97404443965314444851a0}{G\+S\+\_\+\+Dataset\+Create()}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em id} & File handle of selected Geo\+Sci file, or object handle of the container for the Dataset. \\
+\hline
+\mbox{\tt in}  & {\em name} & Name of object to query. \\
+\hline
+\mbox{\tt out}  & {\em size} & A vector of integers\+: the size of each dimension\+: the number of data-\/objects per dimension.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of dimensions in the Dataset, or zero if there is an error. Also returns the length of each dimension (number of data-\/objects), in the integer vector {\ttfamily size}. This vector is allocated by this function, and should be H\+Free()'d when done with it.
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example}
+Get the size of an image raster Dataset. 
+\begin{DoxyCode}
+hid\_t image\_id;
+\textcolor{keywordtype}{int} ndims;
+\textcolor{keywordtype}{int} *size;
+\hyperlink{structtagbstring}{bstring} name = bfromcstr(\textcolor{stringliteral}{"r1"});
+ndims = \hyperlink{GS__DatasetGetDimensions_8c_a977e72eef268bcdeb190bf640f2755ed}{GS\_DatasetGetDimensions}(image\_id,name,&size);
+bdestroy(name);
+\textcolor{keywordflow}{if}(!ndims) \{
+   printf(\textcolor{stringliteral}{"GS\_DatasetGetDimensions failure\(\backslash\)n"});
+\}
+printf(\textcolor{stringliteral}{"the dataset has %d dimensions:\(\backslash\)n"},ndims);
+\textcolor{keywordflow}{for}(i=0;i<ndims;i++) 
+  printf(\textcolor{stringliteral}{"dimension %d size is: %d data-objects\(\backslash\)n"},i+1,size[i]);
+HFree(size);
+\end{DoxyCode}
+
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Details}
+Note that this function returns dimensions in terms of the number of data-\/objects. It does N\+O\+T return the size in bytes. 
+\end{DoxyParagraph}

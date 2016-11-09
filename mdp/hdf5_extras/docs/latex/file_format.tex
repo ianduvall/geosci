@@ -1,0 +1,111 @@
+This is a brief overview of the hdf5-\/extras library object implementation in an H\+D\+F5 file. There are basically 3 different objects that H\+D\+F5 defines\+: metadata, groups, and datasets. Groups are basically like directories in a filesystem, with names and metadata attached to them. Datasets are basically like files in a filesystem, with names and metadata attached to them. We use these 3 H\+D\+F5 objects to create our own \char`\"{}meta\char`\"{} objects.\hypertarget{file_format_file_format_file_metadata}{}\section{File Metadata}\label{file_format_file_format_file_metadata}
+\index{File Metadata Format@{File Metadata Format}}
+
+There is an \char`\"{}\+H\+D\+F5 Group,\char`\"{} named {\ttfamily \+\_\+\+Header} which contains \char`\"{}file\char`\"{} metadata\+: \begin{DoxyItemize}
+\item grouptype, Value\+: \char`\"{}\+Metadata\char`\"{} \item filetype, Value\+: \char`\"{}\+G\+E\+O\+S\+C\+I\char`\"{} \item software\+\_\+version, Value\+: \char`\"{}\+V0.\+0.\+1\char`\"{} \item descriptor \item creation\+\_\+datetime \item last\+\_\+update\+\_\+datetime \item history \item writeable\end{DoxyItemize}
+The descriptor is set by the user. The history is added-\/on to during the lifetime of the file. It keeps track of everything that is done to the file. datetime\textquotesingle{}s look like\+: \char`\"{}15\+:50\+:36 12-\/\+Apr-\/2014\char`\"{} and help keep track of things. Each history line-\/item is tagged with a datetime.
+
+Other objects are created as \char`\"{}\+H\+D\+F5 Groups\char`\"{} under \char`\"{}/,\char`\"{} (the root) with metadata and data beneath the group.\hypertarget{file_format_file_format_image_objects}{}\section{Image Objects}\label{file_format_file_format_image_objects}
+\index{Image Object File Format@{Image Object File Format}}
+
+Image objects are created as groups. They have the following metadata attached to them\+:
+
+\begin{DoxyItemize}
+\item grouptype, Value\+: \char`\"{}\+Image\char`\"{} \item descriptor \item creation\+\_\+datetime \item last\+\_\+update\+\_\+datetime \item history \item writeable\end{DoxyItemize}
+The idea behind a multi-\/channel image is that it should hold all the channels that the user would like to group together as a single unit. For polarimetric S\+A\+R data, all the channels of the covariance matrix should be kept together in one image, to be operated on together. For multispectral data, like Landsat, all 7 channels need to be kept together, even though the resolution, and hence number of pixels, is different for some of the channels.
+
+The descriptor is set by the user. The history is added-\/on to during the lifetime of the image. It keeps track of everything that is done to the image. datetime\textquotesingle{}s look like\+: \char`\"{}15\+:50\+:36 12-\/\+Apr-\/2014\char`\"{} and help keep track of things. Each history line-\/item is tagged with a datetime.
+
+Other, optional, metadata includes the header information that came with the original data, called the \char`\"{}rawheader\char`\"{}. This is just a H\+D\+F5 dataset that contains an exact copy of the metadata that was provided with the original data.
+
+Another optional metadata item is the \char`\"{}processed\char`\"{} header data. This is in a format that depends on the kind of data, such as sar, or landsat, or lidar. Each of these kinds of data has a specific X\+M\+L-\/based metadata format that contains the generic metadata for that type. This metadata is a key component of any system that needs to be able to apply processing algorithms to data without needing to know which sensor took the data. Without this, all the processing codes would be specialized for speciifc sensors and there would never be any consistency and there would be far too many algorithms to keep track of easily. This data is stored in an I\+File so that it is easy to adapt other codes to work with them, as if they are a file in the filesystem.\hypertarget{file_format_file_format_image_data}{}\subsection{Image Data or Rasters}\label{file_format_file_format_image_data}
+\index{Image Data File Format@{Image Data File Format}}
+
+Each channel in an image is a separate \char`\"{}\+H\+D\+F5 Dataset\char`\"{} within an image group. These are called \char`\"{}rasters.\char`\"{}
+
+Y\+E\+T\+:~\newline
+Images can also have image pyramid data associated with them. These are also \char`\"{}\+H\+D\+F5 Datasets,\char`\"{} and are named \char`\"{}p\%d\+\_\+\%d\+X\%d\char`\"{} where the first {\ttfamily d} is the channel number they are associated with, the secondc d is the x-\/dimension in pixels, and the 3rd {\ttfamily d} is the y-\/dimension in pixels. As the pyramids are meant solely for speeding up the G\+U\+I, they are not mentioned in the metadata, and the code has to \char`\"{}look for\char`\"{} them.
+
+Each raster dataset also has metadata\+:
+
+\begin{DoxyItemize}
+\item dataset\+\_\+type, \item descriptor \item last\+\_\+update\+\_\+datetime \item type \item pixel\+\_\+size\+\_\+units, Typical Value\+: \char`\"{}meter\char`\"{} \item pixel\+\_\+size\+\_\+x \item pixel\+\_\+size\+\_\+y \item npixels \item nlines \item writeable\end{DoxyItemize}
+optional metadata\+: \begin{DoxyItemize}
+\item location \item spatialref \item bounds\end{DoxyItemize}
+The typical value for dataset\+\_\+type is \char`\"{}9\char`\"{} which means a raster dataset.
+
+The type is a string that indicates the numeric data-\/type for the raster data, it can be one of\+: {\ttfamily \char`\"{}\+U\+I\+N\+T1\char`\"{}}, {\ttfamily \char`\"{}\+U\+I\+N\+T8\char`\"{}}, {\ttfamily \char`\"{}\+I\+N\+T8\char`\"{}}, {\ttfamily \char`\"{}\+C\+I\+N\+T8\char`\"{}}, {\ttfamily \char`\"{}\+U\+I\+N\+T16\char`\"{}}, {\ttfamily \char`\"{}\+I\+N\+T16\char`\"{}}, {\ttfamily \char`\"{}\+C\+I\+N\+T16\char`\"{}}, {\ttfamily \char`\"{}\+U\+I\+N\+T32\char`\"{}}, {\ttfamily \char`\"{}\+I\+N\+T32\char`\"{}}, {\ttfamily \char`\"{}\+U\+I\+N\+T64\char`\"{}}, {\ttfamily \char`\"{}\+I\+N\+T64\char`\"{}}, {\ttfamily \char`\"{}\+C\+I\+N\+T32\char`\"{}}, {\ttfamily \char`\"{}\+C\+I\+N\+T64\char`\"{}}, {\ttfamily \char`\"{}\+R32\char`\"{}}, {\ttfamily \char`\"{}\+R64\char`\"{}}, {\ttfamily \char`\"{}\+C64\char`\"{}}, {\ttfamily \char`\"{}\+C128\char`\"{}}.
+
+This covers all the basic types that are possible\+: integers, reals, complex numbers, with sizes of 1 bit, 1 byte, 2 byte, 4 bytes, or 8 bytes. These strings can be decoded by noting that U stands for Unsigned, C stands for Complex, R stands for Real, I\+N\+T stands for Integer, and the number at the end is the number of bits in the value. For example\+:
+
+\begin{DoxyItemize}
+\item {\ttfamily \char`\"{}\+U\+I\+N\+T32\char`\"{}} is an unsigned 32-\/bit integer \item {\ttfamily \char`\"{}\+C\+I\+N\+T64\char`\"{}} is a complex 64-\/bit integer. It\textquotesingle{}s real-\/part is represented with a 32-\/integer, it\textquotesingle{}s imaginary-\/part represented with a 32-\/bit integer. \item {\ttfamily \char`\"{}\+C128\char`\"{}} is a complex 128-\/bit floating-\/point value. It\textquotesingle{}s real part\+: 64-\/bit real number (double), it\textquotesingle{}s imag part\+: 64-\/bit real number (double). \item {\ttfamily \char`\"{}\+U\+I\+N\+T1\char`\"{}} is an unsigned 1-\/bit integer (a bitmap).\end{DoxyItemize}
+The \char`\"{}pixel-\/size\char`\"{} parameters are given in the {\ttfamily x} and {\ttfamily y} directions, and they have units. These can all be updated as needed.
+
+\char`\"{}npixels\char`\"{} is the count of pixels in the x-\/direction, \char`\"{}nlines\char`\"{} is the count of pixels in the y-\/direction.
+
+The metadata \char`\"{}writeable\char`\"{} is string, containing a 0 if the raster is write-\/locked, and a 1 if the raster is writeable.
+
+Y\+E\+T\+:~\newline
+The metadata \char`\"{}location\char`\"{} is straightforward copy of the {\ttfamily Location\+\_\+t} structure, with either an affine transform to the projected coords\+: (x0,y0), (dx,dy), etc., or a list of G\+C\+Ps giving image coords and projected coords for up to 100 points. This is all stored in a simple dataset Y\+E\+T\+: in X\+M\+L format.
+
+Y\+E\+T\+:~\newline
+The metadata \char`\"{}spatialref\char`\"{} is a string containing the E\+P\+S\+G (or other) code, the W\+K\+T string, and the proj.\+4 string.\hypertarget{file_format_file_format_iamge_pyramids}{}\subsection{Image Pyramids}\label{file_format_file_format_iamge_pyramids}
+\index{Image Pyramids File Format@{Image Pyramids File Format}}
+
+Y\+E\+T
+
+Image objects can contain other datasets besides the rasters. In particular, they can contain \char`\"{}image pyramids\char`\"{} named {\ttfamily \char`\"{}p\%d\+\_\+xsize\+Xysize\char`\"{}} where the first {\ttfamily d} is the channel number they correspond to, and the xsize\+Xysize is the shrunken size of each\+: there may be many. These datasets (as well as the rasters) have {\ttfamily last-\/update-\/datetime\textquotesingle{}s} so that a program can decide to recompute the pyramids {\itshape if} they are older than the image rasters they go with. These datasets do not have \char`\"{}writeable\char`\"{} metadata so they are always read/write.\hypertarget{file_format_file_format_vectors}{}\section{Vectors}\label{file_format_file_format_vectors}
+\index{Vector Object File Format@{Vector Object File Format}}
+
+Y\+E\+T Vector objects are also created as groups. They have the following metadata attached to them\+:
+
+\begin{DoxyItemize}
+\item grouptype, Value\+: \char`\"{}\+Vector\char`\"{} \item descriptor \item creation\+\_\+datetime \item last\+\_\+update\+\_\+datetime \item history \item writeable \item spatialref \item bounds\end{DoxyItemize}
+Y\+E\+T\+:Convert to X\+M\+L The \char`\"{}spatialref\char`\"{} metadata string contains 3 popular ways to specify the spatial reference that is used to specify coordinates\+: First there is the E\+P\+S\+G code, then the Well-\/\+Known-\/\+Text version, and lastly the proj4 method, each separated with semi-\/colons. An example\+:
+
+
+\begin{DoxyCode}
+EPSG:32613; wkt:PROJCS[\textcolor{stringliteral}{"WGS\_1984\_UTM\_Zone\_13N"},
+GEOGCS[\textcolor{stringliteral}{"GCS\_WGS\_1984"},DATUM[\textcolor{stringliteral}{"D\_WGS\_1984"},
+SPHEROID[\textcolor{stringliteral}{"WGS\_1984"},6378137.0,298.257223563]],
+PRIMEM[\textcolor{stringliteral}{"Greenwich"},0.0],UNIT[\textcolor{stringliteral}{"Degree"},0.0174532925199433],
+AUTHORITY[\textcolor{stringliteral}{"EPSG"},\textcolor{stringliteral}{"4326"}]],PROJECTION[\textcolor{stringliteral}{"Transverse\_Mercator"}],
+PARAMETER[\textcolor{stringliteral}{"False\_Easting"},500000.0],PARAMETER[\textcolor{stringliteral}{"False\_Northing"},0.0],
+PARAMETER[\textcolor{stringliteral}{"Central\_Meridian"},-105.0],PARAMETER[\textcolor{stringliteral}{"Scale\_Factor"},0.9996],
+PARAMETER[\textcolor{stringliteral}{"Latitude\_Of\_Origin"},0.0],UNIT[\textcolor{stringliteral}{"Meter"},1.0],
+AUTHORITY[\textcolor{stringliteral}{"EPSG"},\textcolor{stringliteral}{"32613"}]]; 
+proj4:+proj=utm +zone=13 +ellps=WGS84 +units=m +no\_defs;
+\end{DoxyCode}
+
+
+Note that in the actual string there are no \char`\"{}line-\/feeds\char`\"{} as there are here.
+
+The data that is stored in the Vector object is in an \char`\"{}\+H\+D\+F5 Dataset\char`\"{} under the named Group. This dataset is always named \char`\"{}ifile1.\char`\"{} However, this dataset is set up as a 1-\/dimensional extendable dataset that is basically equivalent to a \char`\"{}file.\char`\"{} It is called an \hyperlink{structIFILE}{I\+F\+I\+L\+E}, and contains all the database tables needed to represent the vectors in a relational-\/spatial database. The database used is spatialite (www.\+gaia-\/gis.\+it/fossil/libspatialite), which is implemented on top of sqlite3 (www.\+sqlite.\+org). A driver was written in order to make it use the internal file instead of the usual file on a user\textquotesingle{}s hard drive. This is described in chapter vfs\+\_\+library\}.\hypertarget{file_format_file_format_yet}{}\section{Yet to Implement}\label{file_format_file_format_yet}
+\index{Yet to Implement File Format Features@{Yet to Implement File Format Features}}
+
+L\+U\+Ts, P\+C\+T\+S, G\+C\+Ps,
+
+bayesian classn signatures
+
+random forests data
+
+modality-\/specific header info.
+
+2d, 3d meshes
+
+2d, 3d triangulations
+
+2d, 3d objects
+
+and we can use the sqlite3 to make a standard relational database, instead of the spatialite database we have already created for vectors. This can be used for std spreadsheets, etc....
+
+lots of arbitrary data formats for various computer codes can be re-\/created as \hyperlink{structIFILE}{I\+F\+I\+L\+E}\textquotesingle{}s with minor modifications to the original codes (as I\textquotesingle{}ve implemented all the C file operations for \hyperlink{structIFILE}{I\+F\+I\+L\+E}\textquotesingle{}s).
+
+is it possible to include E\+S\+M\+F in this?
+
+Need forward and inverse models of all kinds.
+
+calibration
+
+etc. 

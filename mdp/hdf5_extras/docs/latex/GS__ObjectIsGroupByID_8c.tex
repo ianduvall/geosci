@@ -1,0 +1,82 @@
+\hypertarget{GS__ObjectIsGroupByID_8c}{\section{src/\+G\+S\+\_\+\+Object\+Is\+Group\+By\+I\+D.c File Reference}
+\label{GS__ObjectIsGroupByID_8c}\index{src/\+G\+S\+\_\+\+Object\+Is\+Group\+By\+I\+D.\+c@{src/\+G\+S\+\_\+\+Object\+Is\+Group\+By\+I\+D.\+c}}
+}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}bstrlib.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gmalloc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}H5\+A\+T\+T\+R.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}globals.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{GS__ObjectIsGroupByID_8c_a8fe83ac76edc595f6b98cd4a4127aed5}{\#define {\bfseries E\+R\+R\+O\+R}~-\/1}\label{GS__ObjectIsGroupByID_8c_a8fe83ac76edc595f6b98cd4a4127aed5}
+
+\item 
+\hypertarget{GS__ObjectIsGroupByID_8c_aa90cac659d18e8ef6294c7ae337f6b58}{\#define {\bfseries S\+U\+C\+C\+E\+S\+S}~0}\label{GS__ObjectIsGroupByID_8c_aa90cac659d18e8ef6294c7ae337f6b58}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{GS__ObjectIsGroupByID_8c_a850cac18e0e2803810b84f0660ae6c8b}{G\+S\+\_\+\+Object\+Is\+Group\+By\+I\+D} (hid\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em G\+S\+\_\+\+Object\+Is\+Group\+By\+I\+D determines if an object-\/d refers to a group. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{GS__ObjectIsGroupByID_8c_a850cac18e0e2803810b84f0660ae6c8b}{\index{G\+S\+\_\+\+Object\+Is\+Group\+By\+I\+D.\+c@{G\+S\+\_\+\+Object\+Is\+Group\+By\+I\+D.\+c}!G\+S\+\_\+\+Object\+Is\+Group\+By\+I\+D@{G\+S\+\_\+\+Object\+Is\+Group\+By\+I\+D}}
+\index{G\+S\+\_\+\+Object\+Is\+Group\+By\+I\+D@{G\+S\+\_\+\+Object\+Is\+Group\+By\+I\+D}!G\+S\+\_\+\+Object\+Is\+Group\+By\+I\+D.\+c@{G\+S\+\_\+\+Object\+Is\+Group\+By\+I\+D.\+c}}
+\subsubsection[{G\+S\+\_\+\+Object\+Is\+Group\+By\+I\+D}]{\setlength{\rightskip}{0pt plus 5cm}int G\+S\+\_\+\+Object\+Is\+Group\+By\+I\+D (
+\begin{DoxyParamCaption}
+\item[{hid\+\_\+t}]{id}
+\end{DoxyParamCaption}
+)}}\label{GS__ObjectIsGroupByID_8c_a850cac18e0e2803810b84f0660ae6c8b}
+
+
+G\+S\+\_\+\+Object\+Is\+Group\+By\+I\+D determines if an object-\/d refers to a group. 
+
+G\+S\+\_\+\+Object\+Is\+Group\+By\+I\+D determines if an object-\/d refers to a group.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{GS__FileOpen_8c_ab917a3df2cea2e72a959d8e72d8b7f5d}{G\+S\+\_\+\+File\+Open()}, \hyperlink{GS__FileCreate_8c_af07a914cd15aa25e3f6d92fe7ae005fa}{G\+S\+\_\+\+File\+Create()}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em object\+\_\+id} & object handle in a G\+E\+O\+S\+C\+I\+P\+Y database.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T\+R\+U\+E is returned if the object is a group, F\+A\+L\+S\+E otherwise.
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example\+:}
+Query about an image named \char`\"{}\+Channel\+\_\+1\char`\"{} in a file named \char`\"{}test123.\+h5\char`\"{}. 
+\begin{DoxyCode}
+hid\_t    file\_id, image\_id;
+\hyperlink{structtagbstring}{bstring} filename = bfromcstr(\textcolor{stringliteral}{"test123.h5"});
+\hyperlink{structtagbstring}{bstring} access = bfromcstr(\textcolor{stringliteral}{"r+"});
+file\_id = \hyperlink{GS__FileOpen_8c_ab917a3df2cea2e72a959d8e72d8b7f5d}{GS\_FileOpen}(filename,access);
+\textcolor{keywordflow}{if}(file\_id < 0) \{
+   printf(\textcolor{stringliteral}{"Could not open file.\(\backslash\)n"});
+   bdestroy(filename);
+   bdestroy(access);
+   \textcolor{keywordflow}{return};
+\}
+bdestroy(filename);
+bdestroy(access);
+\hyperlink{structtagbstring}{bstring} channel = bfromcstr(\textcolor{stringliteral}{"Channel\_1"});
+image\_id = GS\_ImageOpen(file\_id,channel);
+\textcolor{keywordflow}{if}(image\_id < 0) \{
+   printf(\textcolor{stringliteral}{"Could not open image.\(\backslash\)n"});
+   bdestroy(channel);
+   \textcolor{keywordflow}{return};
+\}
+bdestroy(channel);
+\textcolor{keywordflow}{if}(\hyperlink{GS__ObjectIsGroupByID_8c_a850cac18e0e2803810b84f0660ae6c8b}{GS\_ObjectIsGroupByID}(image\_id))\{
+   ... open the \textcolor{keywordtype}{object} as a group and use it ....
+\} \textcolor{keywordflow}{else} \{
+   printf(\textcolor{stringliteral}{"Object is not a group.\(\backslash\)n"});
+\} \textcolor{comment}{// endif}
+\end{DoxyCode}
+ 
+\end{DoxyParagraph}

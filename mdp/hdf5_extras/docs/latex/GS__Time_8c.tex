@@ -1,0 +1,65 @@
+\hypertarget{GS__Time_8c}{\section{src/\+G\+S\+\_\+\+Time.c File Reference}
+\label{GS__Time_8c}\index{src/\+G\+S\+\_\+\+Time.\+c@{src/\+G\+S\+\_\+\+Time.\+c}}
+}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$time.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$sys/time.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}bstrlib.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gmalloc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}H5\+A\+T\+T\+R.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}globals.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{GS__Time_8c_ab8fedb1962c42b8bebd978488b82d8e3}{void {\bfseries G\+S\+\_\+getdate} (\hyperlink{structtagbstring}{bstring} string)}\label{GS__Time_8c_ab8fedb1962c42b8bebd978488b82d8e3}
+
+\item 
+\hypertarget{GS__Time_8c_a5a0ad7ac552b2f862d7e3d0b010f6c7e}{void {\bfseries G\+S\+\_\+\+Get\+M\+S} (\hyperlink{structtagbstring}{bstring} string)}\label{GS__Time_8c_a5a0ad7ac552b2f862d7e3d0b010f6c7e}
+
+\item 
+void \hyperlink{GS__Time_8c_a37f6df5c008c536ab95475815537708f}{G\+S\+\_\+\+Time} (\hyperlink{structtagbstring}{bstring} string, int format)
+\begin{DoxyCompactList}\small\item\em G\+S\+\_\+\+Time get the local time and date. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{GS__Time_8c_a37f6df5c008c536ab95475815537708f}{\index{G\+S\+\_\+\+Time.\+c@{G\+S\+\_\+\+Time.\+c}!G\+S\+\_\+\+Time@{G\+S\+\_\+\+Time}}
+\index{G\+S\+\_\+\+Time@{G\+S\+\_\+\+Time}!G\+S\+\_\+\+Time.\+c@{G\+S\+\_\+\+Time.\+c}}
+\subsubsection[{G\+S\+\_\+\+Time}]{\setlength{\rightskip}{0pt plus 5cm}void G\+S\+\_\+\+Time (
+\begin{DoxyParamCaption}
+\item[{{\bf bstring}}]{string, }
+\item[{int}]{format}
+\end{DoxyParamCaption}
+)}}\label{GS__Time_8c_a37f6df5c008c536ab95475815537708f}
+
+
+G\+S\+\_\+\+Time get the local time and date. 
+
+\hyperlink{GS__Time_8c_a37f6df5c008c536ab95475815537708f}{G\+S\+\_\+\+Time()} returns a formatted character T\+I\+M\+E and/or D\+A\+T\+E string obtained from the operating system.
+
+The time string is based on a 24 hour clock (e.\+g., ten past 2 p.\+m. would appear as 14\+:10). The overall format is controlled by the format argument as any of 7 different time, date, or time and date formats. Use number 7 for compatibility with the rest of the Geo\+Sci C library.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em bstring} & string; String that will be updated with the current date/time. It must be a valid safe string when this routine is called. \\
+\hline
+\mbox{\tt in}  & {\em format;} & Integer selector for which format of date and/or time is desired. One of\+: \begin{DoxyItemize}
+\item Integer\+: selected string \item 0 \+: \char`\"{}\+H\+H\+:\+M\+M\+:\+S\+S        \char`\"{} \item 1 \+: \char`\"{}\+D\+D-\/\+M\+M\+M-\/\+Y\+Y       \char`\"{} \item 2 \+: \char`\"{}\+D\+D-\/\+M\+M-\/\+Y\+Y        \char`\"{} \item 3 \+: \char`\"{}\+M\+M-\/\+D\+D-\/\+Y\+Y        \char`\"{} \item 4 \+: \char`\"{}\+H\+H\+:\+M\+M D\+D-\/\+M\+M\+M-\/\+Y\+Y \char`\"{} \item 5 \+: \char`\"{}\+H\+H\+:\+M\+M\+:\+S\+S\+:sss    \char`\"{} \item 6 \+: \char`\"{}\+S\+S\+S\+S\+S\+S\+S\+S\+S.\+sss   \char`\"{} \item 7 \+: \char`\"{}\+H\+H\+:\+M\+M\+:\+S\+S D\+D-\/\+M\+M\+M-\/\+Y\+Y\+Y\+Y\char`\"{}\end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+\begin{DoxyParagraph}{Example}
+Get the curent data and time in Geo\+Sci format\+: 
+\begin{DoxyCode}
+\hyperlink{structtagbstring}{bstring} thedatetime=bfromcstr(\textcolor{stringliteral}{""});
+\hyperlink{GS__Time_8c_a37f6df5c008c536ab95475815537708f}{GS\_Time} (thedatetime, 7);
+...use thedatetime...
+bdestroy(thedatetime);
+\end{DoxyCode}
+
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Details}
+This code is derived from source provided by P\+C\+I, Inc and so may need to be rewritten to avoid lawsuits. 
+\end{DoxyParagraph}

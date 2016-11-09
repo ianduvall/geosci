@@ -1,0 +1,63 @@
+\hypertarget{GS__DatasetDelete_8c}{\section{src/\+G\+S\+\_\+\+Dataset\+Delete.c File Reference}
+\label{GS__DatasetDelete_8c}\index{src/\+G\+S\+\_\+\+Dataset\+Delete.\+c@{src/\+G\+S\+\_\+\+Dataset\+Delete.\+c}}
+}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}bstrlib.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gmalloc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}H5\+A\+T\+T\+R.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}globals.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{GS__DatasetDelete_8c_a8fe83ac76edc595f6b98cd4a4127aed5}{\#define {\bfseries E\+R\+R\+O\+R}~-\/1}\label{GS__DatasetDelete_8c_a8fe83ac76edc595f6b98cd4a4127aed5}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{GS__DatasetDelete_8c_ab0d51bd0ba6059ee886dfaba336c5204}{G\+S\+\_\+\+Dataset\+Delete} (hid\+\_\+t file\+\_\+id, \hyperlink{structtagbstring}{const\+\_\+bstring} dataset\+\_\+name)
+\begin{DoxyCompactList}\small\item\em G\+S\+\_\+\+Dataset\+Delete deletes a a dataset in a Geo\+Sci datafile. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{GS__DatasetDelete_8c_ab0d51bd0ba6059ee886dfaba336c5204}{\index{G\+S\+\_\+\+Dataset\+Delete.\+c@{G\+S\+\_\+\+Dataset\+Delete.\+c}!G\+S\+\_\+\+Dataset\+Delete@{G\+S\+\_\+\+Dataset\+Delete}}
+\index{G\+S\+\_\+\+Dataset\+Delete@{G\+S\+\_\+\+Dataset\+Delete}!G\+S\+\_\+\+Dataset\+Delete.\+c@{G\+S\+\_\+\+Dataset\+Delete.\+c}}
+\subsubsection[{G\+S\+\_\+\+Dataset\+Delete}]{\setlength{\rightskip}{0pt plus 5cm}int G\+S\+\_\+\+Dataset\+Delete (
+\begin{DoxyParamCaption}
+\item[{hid\+\_\+t}]{file\+\_\+id, }
+\item[{{\bf const\+\_\+bstring}}]{dataset\+\_\+name}
+\end{DoxyParamCaption}
+)}}\label{GS__DatasetDelete_8c_ab0d51bd0ba6059ee886dfaba336c5204}
+
+
+G\+S\+\_\+\+Dataset\+Delete deletes a a dataset in a Geo\+Sci datafile. 
+
+\hyperlink{GS__DatasetDelete_8c_ab0d51bd0ba6059ee886dfaba336c5204}{G\+S\+\_\+\+Dataset\+Delete()} deletes a dataset in a Geo\+Sci datafile. This is meant to work with any type of dataset.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{GS__DatasetOpen_8c_aee86e45ef56ab3672a06a8358ceddd22}{G\+S\+\_\+\+Dataset\+Open()}, \hyperlink{GS__DatasetClose_8c_a0e45ff4ddce2aa6a3b9bfc2fed6db732}{G\+S\+\_\+\+Dataset\+Close()}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em id} & A handle for the file. \\
+\hline
+\mbox{\tt in}  & {\em dataset\+\_\+name} & The name of the dataset in the file. Should start with a \char`\"{}/\char`\"{}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily T\+R\+U\+E} on sucess, {\ttfamily F\+A\+L\+S\+E} on failure.
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example}
+Delete an image raster dataset named \char`\"{}\+Image1/r1\char`\"{}\+: 
+\begin{DoxyCode}
+hid\_t file\_id;
+\hyperlink{structtagbstring}{bstring} name = bfromcstr(\textcolor{stringliteral}{"/Image1/r1"});
+\textcolor{keywordflow}{if}(!\hyperlink{GS__DatasetDelete_8c_ab0d51bd0ba6059ee886dfaba336c5204}{GS\_DatasetDelete}(file\_id, name)) \{
+  printf(\textcolor{stringliteral}{"Failed to delete dataset.\(\backslash\)n"});
+\}
+bdelete(name);
+\end{DoxyCode}
+ 
+\end{DoxyParagraph}

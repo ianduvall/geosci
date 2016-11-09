@@ -1,0 +1,58 @@
+\hypertarget{GS__GroupClose_8c}{\section{src/\+G\+S\+\_\+\+Group\+Close.c File Reference}
+\label{GS__GroupClose_8c}\index{src/\+G\+S\+\_\+\+Group\+Close.\+c@{src/\+G\+S\+\_\+\+Group\+Close.\+c}}
+}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}bstrlib.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gmalloc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}H5\+A\+T\+T\+R.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}globals.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{GS__GroupClose_8c_a8fe83ac76edc595f6b98cd4a4127aed5}{\#define {\bfseries E\+R\+R\+O\+R}~-\/1}\label{GS__GroupClose_8c_a8fe83ac76edc595f6b98cd4a4127aed5}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{GS__GroupClose_8c_ab3f99f9287304ba4526a9fb04ee734fe}{G\+S\+\_\+\+Group\+Close} (hid\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em G\+S\+\_\+\+Group\+Close closes a group in a Geo\+Sci Datafile. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{GS__GroupClose_8c_ab3f99f9287304ba4526a9fb04ee734fe}{\index{G\+S\+\_\+\+Group\+Close.\+c@{G\+S\+\_\+\+Group\+Close.\+c}!G\+S\+\_\+\+Group\+Close@{G\+S\+\_\+\+Group\+Close}}
+\index{G\+S\+\_\+\+Group\+Close@{G\+S\+\_\+\+Group\+Close}!G\+S\+\_\+\+Group\+Close.\+c@{G\+S\+\_\+\+Group\+Close.\+c}}
+\subsubsection[{G\+S\+\_\+\+Group\+Close}]{\setlength{\rightskip}{0pt plus 5cm}int G\+S\+\_\+\+Group\+Close (
+\begin{DoxyParamCaption}
+\item[{hid\+\_\+t}]{id}
+\end{DoxyParamCaption}
+)}}\label{GS__GroupClose_8c_ab3f99f9287304ba4526a9fb04ee734fe}
+
+
+G\+S\+\_\+\+Group\+Close closes a group in a Geo\+Sci Datafile. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em id} & The handle for the already-\/open group.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily T\+R\+U\+E} is returned if the group is succesfully closed, {\ttfamily F\+A\+L\+S\+E} otherwise.
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example}
+Close the file metadata group after opening it\+: 
+\begin{DoxyCode}
+hid\_t file\_id, meta\_id;
+\hyperlink{structtagbstring}{bstring} headername = bfromcstr(\textcolor{stringliteral}{"/\_Header"});
+meta\_id = GroupOpen(file\_id, headername);
+bdestroy(headername);
+\textcolor{keywordflow}{if}(meta\_id < 0) \{
+  printf(\textcolor{stringliteral}{"Failed to open group.\(\backslash\)n"});
+  \textcolor{keywordflow}{return};
+\}
+GroupClose(meta\_id);
+\end{DoxyCode}
+ 
+\end{DoxyParagraph}

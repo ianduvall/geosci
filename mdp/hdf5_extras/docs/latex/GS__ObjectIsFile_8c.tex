@@ -1,0 +1,54 @@
+\hypertarget{GS__ObjectIsFile_8c}{\section{src/\+G\+S\+\_\+\+Object\+Is\+File.c File Reference}
+\label{GS__ObjectIsFile_8c}\index{src/\+G\+S\+\_\+\+Object\+Is\+File.\+c@{src/\+G\+S\+\_\+\+Object\+Is\+File.\+c}}
+}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}bstrlib.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gmalloc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}H5\+A\+T\+T\+R.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}globals.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{GS__ObjectIsFile_8c_a4cc148d22725e48bb49acd3d5b1c9e16}{G\+S\+\_\+\+Object\+Is\+File} (hid\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em G\+S\+\_\+\+Object\+Is\+File determines if an object-\/id refers to a file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{GS__ObjectIsFile_8c_a4cc148d22725e48bb49acd3d5b1c9e16}{\index{G\+S\+\_\+\+Object\+Is\+File.\+c@{G\+S\+\_\+\+Object\+Is\+File.\+c}!G\+S\+\_\+\+Object\+Is\+File@{G\+S\+\_\+\+Object\+Is\+File}}
+\index{G\+S\+\_\+\+Object\+Is\+File@{G\+S\+\_\+\+Object\+Is\+File}!G\+S\+\_\+\+Object\+Is\+File.\+c@{G\+S\+\_\+\+Object\+Is\+File.\+c}}
+\subsubsection[{G\+S\+\_\+\+Object\+Is\+File}]{\setlength{\rightskip}{0pt plus 5cm}int G\+S\+\_\+\+Object\+Is\+File (
+\begin{DoxyParamCaption}
+\item[{hid\+\_\+t}]{id}
+\end{DoxyParamCaption}
+)}}\label{GS__ObjectIsFile_8c_a4cc148d22725e48bb49acd3d5b1c9e16}
+
+
+G\+S\+\_\+\+Object\+Is\+File determines if an object-\/id refers to a file. 
+
+\hyperlink{GS__ObjectIsFile_8c_a4cc148d22725e48bb49acd3d5b1c9e16}{G\+S\+\_\+\+Object\+Is\+File()} determines if a object-\/id refers to a file or not.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{GS__FileOpen_8c_ab917a3df2cea2e72a959d8e72d8b7f5d}{G\+S\+\_\+\+File\+Open()}, \hyperlink{GS__FileCreate_8c_af07a914cd15aa25e3f6d92fe7ae005fa}{G\+S\+\_\+\+File\+Create()}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em id} & Object handle of selected G\+E\+O\+S\+C\+I\+P\+Y file.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T\+R\+U\+E is returned if the object is a file, F\+A\+L\+S\+E otherwise.
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example\+:}
+Query about an image that was already opened\+: 
+\begin{DoxyCode}
+C       hid\_t    image\_id;
+C       \textcolor{keywordflow}{if}(GS\_GS\_ObjectIsFile(image\_id))\{
+C          ... the \textcolor{keywordtype}{object} is a file: use it...
+C       \} \textcolor{keywordflow}{else} \{
+C          printf(\textcolor{stringliteral}{"Object is not a file.\(\backslash\)n"});
+C       \} \textcolor{comment}{// endif}
+\end{DoxyCode}
+ 
+\end{DoxyParagraph}

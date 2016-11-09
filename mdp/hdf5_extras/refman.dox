@@ -1,0 +1,1041 @@
+May 21, 2016
+Leland Pierce
+
+/* refman.dox
+
+   by Leland Pierce, June 27, 2016
+
+   This contains some of the overview material for the hdf5_extras
+   C library routines.
+
+*/
+
+
+/*! 
+\mainpage Preface
+
+
+\par Intended Audience
+
+This manual is intended for programmers who wish to understand the
+low-level design of the hdf5-extras C library, and contribute to it as developers.
+It describes the choices made and the reasons for them, and then goes
+on to describe the implementation of the basic data types that the
+rest of the library is based on.
+It also gives details as to how to write documentation, tests, 
+and gives a more in-depth description of the logical file format.
+
+\par Structure of the Manual
+
+This manual consists of the following chapters:
+
+\li \ref intro is a brief introduction to the manual.
+\li \ref code_organization explains the major divisions of
+  the library, and what is in each.
+\li \ref base_library introduces functions used throughout
+  the code for file I/O, safe strings, and other miscellaneous needs.
+\li \ref hdf_library shows the functions that are used in order to
+  abstract the required functionality of the HDF5 file format.
+\li \ref ifile_library explains the concept of an internal file that can be
+  created within an HDF5 fileand routines  that are used for storing and
+  manipulating data in an internal file.
+\li \ref vfs_library contains a description of the
+  routines used to embed an sqlite3 database file in an internal file.
+\li \ref file_format gives a brief overview of the logical arrangement of metadata,
+datasets, and groups that go into making a valid GeoSciLib HDF-5 file.
+
+
+*/
+
+
+
+//-----------------------------------------------------------
+/*! \page intro Introduction
+
+The hdf5-extras C library implements all functions that are needed for reading,
+storing, processing, and reporting on data stored in an HDF5 file, including
+images and vector data.
+
+We start with the assumtion that the user does not have enough memory to store
+an entire dataset in RAM, and so the dataset must be stored in a file
+or files that are on the hard drive of their computer, or on some
+other computer.
+The open-source HDF5 library is used to implement this file, in part
+because it enables having a "file-system within a file" structure for
+data and metadata, and also enables parallel I/O operations.
+
+We also implement our own malloc/free functions, for efficiency, but
+also in case we need to change it in the future.
+
+Because C strings are so error-prone, we have chosen to use an
+open-source implementation called the "Better String" library.
+
+The error reporting is done via a global better-string variable that
+is set when an error is detected, and the routine that detected it
+returns an error-code that the caller can choose to honor or ignore.
+
+Testing is accomplished using the unit test framework called "check".
+
+The Gnu C compiler is used, with implementations available on all 3
+major platforms.
+
+Naming of most library 
+functions uses a "GS_" prefix, using upper camel-case for the
+remaining part of the name. For variables, we use lower camel-case.
+For the internal file implementation we start each function with "IFile".
+
+Code documentation (for developers and advanced users) is via Doxygen.
+
+
+\section Terminology
+
+The terminology used reflects the object structure within a GeoSci file.
+In particular, the major object types that are supported are called:
+Image, Vector, and Metadata.
+
+Within an Image we have:
+\li Metadata Items: single-string values,
+\li Metadata Datasets: whose values are made up of many different variables,
+\li Rasters: representing a single channel of some datatype,
+\li Pyramids: reduced-resolution representations of each channel.
+
+Within a Vector we have:
+\li Metadata Items: single-string values,
+\li Metadata Datasets: whose values are made up of many different variables,
+\li IFile: an "internal file" that holds the spatial-relational database 
+information that describes the Vector data.
+
+There is also the terminology of HDF-5 that may be needed occassionally to understand
+certain things:
+\li Metadata: can contain strings, numbers, matrices, etc. 
+So far we only use the single-string version of this HDF-5 construct. 
+Can be attached to Groups or Datasets
+\li Group: Roughly equivalent to folders or directories in a computer's filesystem.
+\li Dataset: Roughly equivalent to an ordinary file, but with special properties, 
+allowing it to hold multidimensional typed data, can be a set length or extendable, and can be
+stored in a compressed format if desired.
+
+There are other terms that are introduced as needed throughout the documentation.
+
+next: \ref code_organization
+
+*/
+
+
+
+
+//-----------------------------------------------------------
+/*! \page code_organization Code Organization
+  
+The library is divided into several main parts, each  contain related
+code. The compiled code in all these parts is combined into one
+library file for subsequent use.
+These parts are:
+
+\li \ref base_library : includes better-strings: strings in C that are better than char *, and 
+         GMalloc, GFree, a thin layer on top of standard C malloc/free.
+\li \ref hdf_library :  routines to abstract the HDF5 functions for use by the rest
+         of the library. 
+\li \ref ifile_library :  implementation of internal files within an HDF5 dataset.
+\li \ref vfs_library : implementation of sqlite3 database files in an ifile.
+
+
+next: \ref base_library
+*/
+
+
+//-----------------------------------------------------------
+/*! \page base_library Base Library
+  
+\addindex Base Library
+
+The library is implemented in several layers, as described in the
+previous chapter.
+The base library  is used by all the others, containing
+functions to deal with the following major functions:
+\li Safe Strings
+\li malloc/free
+
+These are described in the following sections.
+
+\section base_safe_strings Safe Strings
+\addindex Safe Strings
+
+Strings are notorious for causing trouble in C code.
+Instead of using them, we choose to use a library that implements a
+safer string. This library is called the Better String Library, and is
+written by Paul Hsieh. 
+It is available from: http://bstring.sourceforge.net.
+The basic idea is to have the string and metadata about the string in
+a \c struct, and the \c struct is used in the code, not the string, as
+shown in the code fragment below:
+\code
+    struct tagbstring {
+        int mlen;
+        int slen;
+        unsigned char * data;
+    };
+\endcode
+Note that the string part of this \c struct is named \c data, 
+while the length of the valid data in the string is stored in \c slen, and
+the number of bytes allocated to data is stored in \c mlen.
+As needed, the string part of this struct is allocated, reallocated and
+deallocated, so that there are fewer errors by the programmer.
+Note that a \c bstring must be initialized before most of the \c bstring
+functions can operate on it sensibly.
+The typical usage of this new datatype is supported by many functions,
+a few of which are shown below:
+
+\li declaring it: <tt>bstring str1</tt>
+\li declaring and allocating it: <tt>bstring str1 = bfromcstr("")</tt>
+\li get the c-string from the bstring: <tt>bdata(bstring b)</tt>
+\li assign a c-string to a bstring:    <tt>bassigncstr(b, "")</tt>
+\li sprintf: <tt>bassignformat(b, "format", variables, ...)</tt>
+\li refer to a character in the string: <tt>bchar(b, index)</tt>
+\li copy a bstring to another bstring, which may not be initialized
+  yet: <tt>name = bstrcpy(filename)</tt>
+\li deallocate: <tt>bdestroy(b)</tt>
+\li strlen: <tt>blength(b)</tt>
+\li strcpy: <tt>bassign(a,b)</tt>
+\li strstr: <tt>binstr(b, pos,  c)</tt>
+\li strcat: <tt>bconcat(b, c)</tt>
+\li constant strings: <tt>bsstatic("blah")</tt>
+\li reading from a file:
+
+\code
+bstring theline = bfromcstr("");
+struct bStream * bstream;
+FILE *fp;
+fp =fopen("name","access");
+bstream = bsopen ((bNread) fread, fp);
+bsread(theline,bstream,10);
+bsclose(bstream);
+fclose(fp);
+\endcode
+
+
+\section base_mallocfree Malloc/Free
+
+
+\addindex GMalloc
+\addindex GFree
+
+We have an implementation of malloc/free called GMalloc/GFree
+that is used everywhere in our library.
+This currently is a thin layer on top of the C standard malloc/free.
+THe basic idea here is to not free null pointers, and to have stubs
+that can be rewritten later if needed, without having to rewrite all 
+of our existing code.
+
+\addindex Base Library Macros
+Other things that are available in the \c base.h file are:
+definitions for \c TRUE and \c FALSE, macros \c MIN, \c  MAX, 
+\c ABS, bstring-comparisons: \c EQUAL, and \c EQUALN,
+block-copy macros: \c ByteCopy and \c BstringCopy, and a few
+other constants and typedefs.
+
+next: \ref hdf_library
+*/
+
+
+
+
+
+
+//-----------------------------------------------------------
+/*! \page hdf_library HDF5 Abstraction Library
+
+These functions are on top of the HDF-5 library that the rest of
+the library is supposed to call.
+This way, the dependency on HDF-5 is limited to this one set of
+functions, and can be replaced, if needed, by rewriting them using a
+different file format library.
+
+The four major categories of objects that are supported by HDF-5 are
+the following:
+
+\li Files
+\li Metadata
+\li Datasets
+\li Groups
+
+The HDF-5 standard basically allows one to create a
+filesystem-within-a-file.
+Datasets are basically ``files'', while Groups are ``directories''.
+The concept of metadata is an extension to normal filesystems, and can
+be attached to Groups as well as Datasets.
+
+We abstract the functions for creation, deletion, modification, etc. of
+each of these four objects.
+
+
+\section object_query_functions Query Functions
+\addindex Query Functions
+
+These functions provide a way to determine the type of an object given
+its identifier, and to make various queries.
+Functions for HDF-5 objects are:
+\li \ref GS_ValidID
+\li \ref GS_ObjectIsFile
+\li \ref GS_ObjectIsDataset, \ref GS_ObjectIsDatasetByID
+\li \ref GS_ObjectIsGroup, \ref GS_ObjectIsGroupByID
+\li \ref GS_ObjectIsMetadataDataset
+\li \ref GS_CheckInternalName
+\li \ref GS_GetIDName
+
+Functions for GeoSci objects are:
+\li \ref GS_GetObjectType (yet to rename to: GS_ObjectGetType)
+\li \ref GS_ObjectIsIFile, \ref GS_ObjectIsIFileByID
+\li \ref GS_ObjectIsImage, \ref GS_ObjectIsImageByID
+\li \ref GS_ObjectIsMetadataDataset, \ref GS_ObjectIsMetadataDatasetByID
+\li \ref GS_ObjectIsMetadataIFile, \ref GS_ObjectIsMetadataIFileByID
+\li \ref GS_ObjectIsRaster, \ref GS_ObjectIsRasterByID
+\li \ref GS_ObjectIsVector, \ref GS_ObjectIsVectorByID
+
+There are no Metadata identifiers, and so there are no query functions related
+to Metadata. However, we can create Datasets that hold Metadata, and
+these are specially identified so that they are not confused with other
+Datasets.
+The \ref GS_CheckInternalName function is used to make sure we don't try to
+create an object using a name that is already in use.
+
+We can also make objects be read-only by "locking" them, and we can also "unlock" them:
+\li \ref GS_ObjectLock
+\li \ref GS_ObjectUnlock
+
+Some miscellaneous functions are:
+\li \ref GS_CreateAccessPlist
+\li \ref GS_ObjectGetH5Children
+\li \ref GS_ObjectGetGSChildren
+\li \ref GS_SetCacheSize
+
+Some functions to process pathnames, which deal with different naming 
+conventions on different platforms automatically, are:
+\li \ref GS_PathnameNoDir (yet to be renamed: GS_PathnameStripDir)
+\li \ref GS_PathnameGetDir
+\li \ref GS_PathnameJoin
+
+
+
+
+\section object_metadata_functions Metadata Functions
+\addindex  Metadata Functions
+
+There are two kinds of functions in this set: one for creating standard HDF-5 Metadata,
+and the other for creating Datasets to hold Metadata.
+
+\li \ref H5ATTRset_attribute_string
+\li \ref H5ATTRget_attribute_string
+\li \ref GS_GetStringAttribute
+\li \ref GS_SetStringAttribute
+\li \ref (yet) GS_SpatialrefCreate
+\li \ref (yet) GS_LocationCreate
+\li \ref (yet) GS_RawHeaderCreate
+\li \ref (yet) GS_SarHeaderCreate
+\li \ref GS_AppendMetadata
+\li \ref GS_UpdateMetadata
+\li \ref GS_ValidMetadataName
+\li \ref GS_FileCreateMetadata
+\li \ref GS_ImageCreateMetadata
+\li \ref GS_RasterCreateMetadata
+\li \ref GS_VectorCreateMetadata
+
+These are some functions for dealing with the history metadata, 
+which keeps track of what functions, with what arguments, have been applied to
+the data in a file:
+\li \ref GS_AppendHistory
+\li \ref GS_AbortedHistory
+\li \ref GS_SplitHistory
+
+While this function is used to update the descriptor for any object:
+\li \ref (yet) GS_DescriptorUpdate
+
+The following functions deal with coordinates that are used to keep track 
+of the geographic bounding rectangle of an object:
+\li \ref (yet) GS_CoordinatesCreate
+\li \ref (yet) GS_CoordinatesIO
+\li \ref (yet) GS_CoordinatesCopy
+\li \ref (yet) GS_CoordinatesReport
+
+The following functions deal with georeferencing of a raster dataset, such as an image.
+It provides two distinct ways to do this: either an affine transform, or a set of tie points.
+The affine transform is based on the following equations:
+\code
+x-coordinate = x-offset + dx/dpixel * pixel + dx/dline * line
+y-coordinate = y-offset + dy/dpixel * pixel + dy/dline * line
+\endcode
+while the tie points provide the geographic coordinates given the \c x-y coordinates for
+several points within the dataset.
+This metadata is named "Location", and these are the functions to deal with it:
+\li \ref (yet) GS_LocationCreate
+\li \ref (yet) GS_LocationCopy
+\li \ref (yet) GS_LocationIO
+\li \ref (yet) GS_LocationReport
+
+For datasets that have coordinates given with respect to a particular Datum, 
+and possibly also a map projection, the "Spatial Reference" metadata or "Spatialref"
+metadata is used. This is a string containing three different representations of the 
+datum and map projection: first is the EPSG or IAU2000
+code for the datum/map-projection combination,
+second is the WKT version, and third is the Proj.4 version.
+\li \ref (yet) GS_SpatialrefCopy
+\li \ref (yet) GS_SpatialrefCreate
+\li \ref (yet) GS_SpatialrefImport
+\li \ref (yet) GS_SpatialrefIO
+\li \ref (yet) GS_SpatialrefReport
+\li \ref (yet) GS_GSPGetAuthorityCode
+\li \ref (yet) GS_GetSpatialref_UTM_WGS84
+
+Noite that the EPSG code is for data related to the Earth, while the IAU2000 code is used
+for data related to other planets or moons.
+
+
+
+
+\section hdf_file_functions File Functions
+\addindex HDF5 File Functions
+
+For files we have the following functions:
+\li \ref GS_FileCreate
+\li \ref GS_FileOpen
+\li \ref GS_FileClose
+\li \ref GS_FileCopy
+\li \ref GS_FileDelete
+\li \ref GS_FileFlush
+\li \ref GS_FileRename
+\li \ref GS_FileIsOpen
+\li \ref GS_FileIsWriteable
+\li \ref GS_FileCreateMetadata
+\li \ref GS_GetValidFileID
+\li \ref GS_FileReport
+\li \ref GS_FileCloseAllObjects
+
+
+
+These functions deal with HDF-5 files that have been created by the
+hdf5-extras C library.
+Generic HDF-5 I/O functions for all other HDF-5 files, are described
+elsewhere. [YET]
+
+\section hdf_dataset_functions Dataset Functions
+\addindex HDF5 Dataset Functions
+
+For datasets we have the following functions:
+\li \ref GS_DatasetOpen
+\li \ref GS_DatasetClose
+\li \ref GS_DatasetDelete
+\li \ref GS_DatasetCopy
+\li \ref GS_DatasetCreate
+\li \ref GS_DatasetRename
+\li \ref GS_DatasetRead
+\li \ref GS_DatasetWrite
+\li \ref GS_DatasetGetParent
+\li \ref GS_DatasetSetType
+\li \ref GS_DatasetGetType
+\li \ref GS_DatasetGetDimensions, \ref GS_DatasetGetDimensionsByID
+\li \ref GS_DatasetIsWriteable
+\li \ref GS_DatasetReport
+\li \ref GS_DatasetGetBounds
+\li \ref GS_DatasetGetProjection
+\li \ref GS_DatasetGetDatum
+
+
+
+And the related functions to deal with the datatype of a Dataset:
+\li \ref GS_FileCommitDatatypes
+\li \ref GS_ConvertFromHDFDatatype
+\li \ref GS_ConvertToHDFDatatype
+\li \ref GS_DatasetGetDatatype, \ref GS_DatasetGetDatatypeByID
+\li \ref GS_HDFDatatypeClose
+\li \ref (yet) GS_DataConversion
+\li \ref GS_DatatypeAsString
+\li \ref GS_DatatypeIsComplex
+\li \ref (yet) GS_DatatypeIsInteger
+\li \ref (yet) GS_DatatypeSsInteger
+\li \ref (yet) GS_DatatypeNumBytes
+
+note: YET: all the GS_Datatype functions need to be renamed to be 
+RasterType not Datatype.
+
+
+
+
+
+\section hdf_group_functions Group Functions
+\addindex HDF5 Group Functions
+
+For groups we have the following functions:
+\li \ref GS_GroupCreate
+\li \ref GS_GroupOpen
+\li \ref GS_GroupClose
+\li \ref GS_GroupDelete
+\li \ref GS_GroupGetType
+\li \ref GS_GroupSetType
+\li \ref GS_GroupCopy
+\li \ref GS_GroupRename
+\li \ref GS_GroupCloseAllObjects
+\li \ref GS_GroupReport
+\li \ref GS_GroupIsWriteable, \ref GS_GroupIsWriteableByID
+
+
+
+In the hdf5-extras C library we use groups to contain all the data related to a
+particular datatype, such as an image, or a set of vectors, and so
+generally we define these Groups to be our Objects.
+The \ref GS_GroupGetType function returns this type.
+
+Since most groups will contain geographic data of some kind, we
+also provide functions for such queries on any group:
+\li \ref GS_GroupGetBounds
+\li \ref GS_GroupGetDatum
+\li \ref GS_GroupGetProjection
+
+Of course, if the group does not have geographic attributes, these functions say so.
+
+
+
+
+\section object_images Images
+\addindex Image Objects
+
+Images are HDF-5 Groups with a variety of HDF-5 Attribute data
+associated with them, and several HDF-5 Datasets containing the
+image data, and other related data, as well as other metadata.
+These are the general functions for operating on Image objects:
+\li \ref GS_ImageCreate
+\li \ref GS_ImageOpen
+\li \ref GS_ImageClose
+\li \ref GS_ImageDelete
+\li \ref (yet) GS_ImageCopy, \ref GS_ImageCopyByID
+\li \ref (yet) GS_ImageReport
+
+
+\section raster_functions Raster Functions
+
+\li \ref GS_RasterCreate
+\li \ref GS_RasterOpen
+\li \ref GS_RasterClose
+\li \ref GS_RasterDelete
+\li \ref GS_RasterCreateMetadata
+\li \ref GS_RasterPixelSize
+\li \ref GS_RasterSizeInfo
+\li \ref GS_RasterTypeIsComplex
+\li \ref GS_RasterTypeIsInteger
+\li \ref GS_RasterCheckWindow, \ref GS_RasterCheckWindowByID
+
+
+\section object_pyramids Image Pyramids
+
+(yet) Image pyramids are lower-resolution versions of the channels associated with an image.
+These HDF-5 Datasets are generally useful to make a GUI appear faster when a user is
+loading image data or roaming around an image.
+\li \ref GS_PyramidCreate
+\li \ref GS_PyramidDelete
+\li \ref GS_PyramidCalcSizes
+\li \ref GS_PyramidCheck
+\li \ref GS_PyramidExist
+\li \ref GS_PyramidUpdate
+
+
+\section object_vectors Vectors
+\addindex Vector Objects
+
+(yet) Vector objects are sets of coordinates with respect to some Datum, and usually
+with some projection.
+These objects can be points, lines, polygons, and others, usually with the 
+coordinates being 2D, such as Latitude and Longitude or Easting/Northing.
+The \c spatialite spatial-relational database program has been made part of the GeoSci
+package, and so these sets of vectors are stored as a Vector object inside an IFile that
+represents a \c sqlite3 database file. 
+This provides the full functionality of the spatial-relational database as well as a
+storage format.
+\li \ref GS_VectorCreate
+\li \ref GS_VectorClose
+\li \ref GS_VectorDelete
+\li \ref GS_VectorImport
+\li \ref GS_VectorOpen
+\li \ref GS_VectorReport
+\li \ref GS_VectorDatabaseInit
+\li \ref GS_VectorDatabaseOpen
+\li \ref GS_GetVectorBounds
+\li \ref GS_GetVectorNumShapes
+\li \ref GS_GetVectorTableDef
+\li \ref GS_GetVectorTypeAsString
+
+Some routines needed to make all the vector functionality possible are:
+\li \ref GS_OSRImport (getting the spatial reference system suring import)
+\li \ref demovfs (implement IFile functions for the sqlite3 program)
+\li \ref GS_DecodeSRID (parsing number from string representation)
+
+
+
+next: \ref ifile_library
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------------------
+/*! \page ifile_library HDF5 Internal Files
+
+\section object_ifiles IFiles
+\addindex IFile Objects
+
+The name "IFile" is short for "Internal File", and is meant to 
+refer to a Dataset inside an HDF-5 file that behaves just like 
+a file in the user's file system.
+The idea behind this is to make it easy to create text files or binary files
+with almost the exact smae code as one would use for disk files, but instead 
+create them as part of the object hierarchy inside the HDF file.
+Such files can be used in a variety of ways.
+So far, it has been used to create Metadata files, and also relational database files
+that are used with the \c sqlite3 database program, and its related 
+\c spatialite spatial-relational databse program, both open-source.
+Analogs to each of the C file-access functions have been written in order to make
+porting such codes as easy as possible:
+\li \ref IFileAllocate
+\li \ref IFileClearError
+\li \ref IFileClose
+\li \ref IFileEOF
+\li \ref IFileError
+\li \ref IFileFlush
+\li \ref IFileGetc
+\li \ref IFileGets
+\li \ref IFileGetWrite
+\li \ref IFileGetWriteDataset
+\li \ref IFileOpen
+\li \ref IFilePerror
+\li \ref IFilePrintf
+\li \ref IFilePutc
+\li \ref IFilePuts
+\li \ref IFileReadAccess
+\li \ref IFileReadAccessHDF
+\li \ref IFileReadALine
+\li \ref IFileRead
+\li \ref IFileReadStatus
+\li \ref IFileRewind
+\li \ref IFileScanf
+\li \ref IFileSeek
+\li \ref IFileSetEOF
+\li \ref IFileSetWriteability
+\li \ref IFileSetWrite
+\li \ref IFileSize
+\li \ref IFileSizeHDF
+\li \ref IFileTell
+\li \ref IFileTruncate
+\li \ref IFileWriteAccess
+\li \ref IFileWrite
+\li \ref IFileWriteStatus
+\li \ref IFileWriteStatusMessage
+
+
+
+
+
+
+next: \ref vfs_library
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------------------
+/*! \page vfs_library sqlite3 vfs 
+
+
+
+\section object_relational_databases Relational Databases
+\addindex Relational Database Objects
+
+The realational database used is \c sqlite3.
+This database engine uses a single file to store all the tables and related
+data. 
+It does not use a client/server structure, instead opting for a simpler C-library
+that does it all, and with no user names or passwords either.
+This design is exactly what is needed for an embedded database, such as what is needed
+by this project.
+
+The major effort to get this to work with an internal HDF-5 Dataset was to write all the
+standard C I/O functions to work with a HDF-5 Dataset instead,
+to come up a with consistent naming scheme,
+and to then write a set of driver functions for \c sqlite3 to use.
+These driver functions are in the file \c demovfs.c and implement a standard
+interface that \c sqlite3 expects.
+
+The \c spatialite spatial-relational database is implemented on top of sqlite3,
+and was also easily embedded into the hdf5-extras C-library with very little effort.
+The Vector object is implemented using these programs.
+
+\subsection object_spatialite Spatialite
+
+The \c spatialite spatial-relational database is full-featured, with many attributes
+needed for optimized spatial queries.
+The following summarizes this functionality.
+
+[YET]
+
+
+\section object_other Other
+
+Yet to discuss the differences between 
+MetdataDatasets and also MetadataIFiles.
+
+(yet) In order to make it possible for a function to optimize its function based
+on the available RAM, as well as the number of processors, the following functions
+are available:
+\li \ref GS_GetFreeMemory
+\li \ref GS_GetSystemMemory
+\li \ref omp_get_num_procs
+\li \ref omp_set_num_threads
+
+The last two functions are a standard part of the \c OpenMP
+multi-core parallel processing library that is built-in to \c gcc.
+There are shown here to make it clear where they are used by processing functions.
+
+There are also a variety of miscellaneous functions:
+\li \ref (yet) byte_swap
+\li \ref (yet) gcpregression2
+\li \ref (yet) gcprootmeansq
+\li \ref (yet) gcptransform
+
+
+next: \ref file_format
+
+*/
+
+
+//-----------------------------------------------------------
+/*! \page file_format File Format
+
+
+This is a brief overview of the hdf5-extras library
+object implementation in an HDF5 file.
+There are basically 3 different objects that HDF5 defines: metadata,
+groups, and datasets.
+Groups are basically like directories in a filesystem, with names and
+metadata attached to them.
+Datasets are basically like files in  a filesystem, with names and
+metadata attached to them.
+We use these 3 HDF5 objects to create our own "meta" objects.
+
+\section file_format_file_metadata File Metadata
+\addindex File Metadata Format
+
+There is an "HDF5 Group," named \c _Header
+   which contains "file" metadata:
+\li   grouptype,          Value: "Metadata"
+\li   filetype,           Value: "GEOSCI"
+\li   software_version,   Value: "V0.0.1"
+\li   descriptor 
+\li   creation_datetime
+\li   last_update_datetime
+\li   history
+\li   writeable
+
+The descriptor is set by the user.
+The history is added-on to during the lifetime
+of the file. It keeps track of everything that
+is done to the file.
+datetime's look like: "15:50:36 12-Apr-2014"
+and help keep track of things.
+Each history line-item is tagged with a datetime.
+
+Other objects are created as "HDF5 Groups" under "/,"
+(the root) with metadata and data beneath the group.
+
+
+\section file_format_image_objects Image Objects
+\addindex Image Object File Format
+
+
+Image objects are created as groups.
+   They have the following metadata attached to them:
+
+\li   grouptype,       Value: "Image"
+\li   descriptor
+\li   creation_datetime
+\li   last_update_datetime
+\li   history
+\li   writeable
+
+
+
+The idea behind a multi-channel image is that it should hold all the
+channels that the user would like to group together as a single
+unit.
+For polarimetric SAR data, all the channels of the covariance
+matrix should be kept together in one image, to be operated on together.
+For multispectral data, like Landsat, all 7 channels need to be
+kept together, even though the resolution, and hence number of
+pixels, is different for some of the channels.
+
+The descriptor is set by the user.
+The history is added-on to during the lifetime
+of the image. It keeps track of everything that
+is done to the image.
+datetime's look like: "15:50:36 12-Apr-2014"
+and help keep track of things.
+Each history line-item is tagged with a datetime.
+
+Other, optional, metadata includes the header information 
+that came with the original data, called the "rawheader".
+This is just a HDF5 dataset that contains an exact copy of the metadata
+that was provided with the original data.  
+
+Another optional metadata item is the "processed" header data.
+This is in a format that depends on the kind of data, such as sar,
+ or landsat, or lidar. Each of these kinds of data has a specific XML-based
+metadata format that contains the generic metadata for that type.
+This metadata is a key component of any system that needs to be able to apply 
+processing algorithms to data without needing to know which sensor took 
+the data. Without this, all the processing codes would be specialized for
+speciifc sensors and there would never be any consistency and there would
+be far too many algorithms to keep track of easily. This data is stored in
+an IFile so that it is easy to adapt other codes to work with them, as if they
+are a file in the filesystem.
+
+
+    
+
+
+
+
+\subsection file_format_image_data Image Data or Rasters
+\addindex Image Data File Format
+
+Each channel in an image is a separate "HDF5 Dataset" within
+an image group.
+These are called "rasters."
+
+YET:\n
+Images can also have image pyramid data associated with them.
+These are also "HDF5 Datasets," and are named "p%d_%dX%d"
+where the first \c %d is the channel number they are associated with,
+the secondc %d is the x-dimension in pixels, and the 3rd \c %d is
+the y-dimension in pixels.
+As the pyramids are meant solely for speeding up the GUI, they are
+not mentioned in the metadata, and the code has to "look for"
+them.
+
+
+Each raster dataset also has metadata:
+
+\li    dataset_type,
+\li    descriptor
+\li    last_update_datetime
+\li    type
+\li    pixel\_size\_units, Typical Value: "meter"
+\li    pixel\_size\_x
+\li    pixel\_size\_y
+\li    npixels
+\li    nlines
+\li    writeable
+
+optional metadata:
+\li    location
+\li    spatialref
+\li    bounds
+
+The typical value for dataset_type is "9" which means a raster dataset.
+
+
+The type is a string that indicates the numeric data-type for the raster data,
+it can be one of:
+    \c "UINT1",
+    \c "UINT8",
+    \c "INT8",
+    \c "CINT8",
+    \c "UINT16",
+    \c "INT16",
+    \c "CINT16",
+    \c "UINT32",
+    \c "INT32",
+    \c "UINT64",
+    \c "INT64",
+    \c "CINT32",
+    \c "CINT64",
+    \c "R32",
+    \c "R64",
+    \c "C64",
+    \c "C128".
+
+This covers all the basic types that are possible: integers,
+reals, complex numbers, with sizes of 1 bit, 1 byte, 2 byte, 4
+bytes, or 8 bytes.
+These strings can be decoded by noting that U
+stands for Unsigned, C stands for Complex, R
+stands for Real, INT stands for Integer, and the
+number at the end is the number of bits in the value.
+For example:
+
+\li       \c "UINT32" is an unsigned 32-bit integer
+\li       \c "CINT64" is a complex 64-bit integer.
+                It's real-part is represented with a 32-integer,
+                it's imaginary-part represented with a 32-bit integer.
+\li       \c "C128"   is a complex 128-bit floating-point  value.
+                It's real part: 64-bit real number (double),
+                it's imag part: 64-bit real number (double).
+\li       \c "UINT1"  is an unsigned 1-bit integer (a bitmap).
+
+
+
+The "pixel-size" parameters are given in the \c x and \c y directions,
+and they have units. These can all be updated as needed.
+
+"npixels" is the count of pixels in the x-direction,
+"nlines" is the count of pixels in the y-direction.
+
+The metadata "writeable" is string,
+containing a 0 if the raster is write-locked, 
+and a 1 if the raster is writeable.
+
+YET:\n
+The metadata "location" is straightforward copy of the \c Location_t structure,
+with either an affine transform to the projected coords: (x0,y0),
+(dx,dy), etc., or a list of GCPs giving image coords and
+projected coords for up to 100 points. This is all stored in a
+simple dataset YET: in XML format.
+
+YET:\n
+The metadata "spatialref" is a string containing the EPSG (or other) code,
+the WKT string, and the proj.4 string.
+
+
+
+\subsection file_format_iamge_pyramids Image Pyramids
+\addindex Image Pyramids File Format
+
+YET
+
+Image objects can contain other datasets besides the rasters.
+In particular, they can contain "image pyramids" named
+\c "p%d_xsizeXysize" where the first \c %d is the channel number they
+correspond to, and the xsizeXysize is the shrunken size of each:
+there may be many.
+These datasets (as well as the rasters) have \c last-update-datetime's so that
+a program can decide to recompute the pyramids \a if they are older
+than the image rasters they go with.
+These datasets do not have "writeable" metadata so they are always
+read/write.
+
+
+
+    
+\section file_format_vectors Vectors
+\addindex Vector Object File Format
+
+YET
+Vector objects are also created as groups.
+They have the following metadata attached to them:
+
+\li   grouptype, Value: "Vector"
+\li   descriptor
+\li   creation_datetime
+\li   last_update_datetime
+\li   history
+\li   writeable
+\li   spatialref
+\li   bounds
+
+
+YET:Convert to XML
+The "spatialref" metadata string contains 3 popular ways to specify the spatial
+reference that is used to specify coordinates:
+First there is the EPSG code, then the Well-Known-Text version,
+and lastly the proj4 method, each separated with semi-colons.
+An example:
+
+\code
+       EPSG:32613; wkt:PROJCS["WGS_1984_UTM_Zone_13N",
+       GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",
+       SPHEROID["WGS_1984",6378137.0,298.257223563]],
+       PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433],
+       AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],
+       PARAMETER["False_Easting",500000.0],PARAMETER["False_Northing",0.0],
+       PARAMETER["Central_Meridian",-105.0],PARAMETER["Scale_Factor",0.9996],
+       PARAMETER["Latitude_Of_Origin",0.0],UNIT["Meter",1.0],
+       AUTHORITY["EPSG","32613"]]; 
+       proj4:+proj=utm +zone=13 +ellps=WGS84 +units=m +no_defs;
+\endcode
+
+Note that in the actual string there are no "line-feeds" as there
+are here.
+
+The data that is stored in the Vector object is in an
+"HDF5 Dataset" under the named Group. This dataset is always named "ifile1."
+However, this dataset is set up as a 1-dimensional extendable
+dataset that is basically equivalent to a "file."
+It is called an IFILE, and contains all the database tables
+needed to represent the vectors in a relational-spatial database.
+The database used is spatialite
+(www.gaia-gis.it/fossil/libspatialite), 
+which is implemented on top of
+sqlite3 (www.sqlite.org). A driver was written in order to make it use the internal
+file instead of the usual file on a user's hard drive.
+This is described  in chapter \ref{vfs_library}.
+   
+   
+\section file_format_yet Yet to Implement
+\addindex Yet to Implement File Format Features
+ 
+LUTs, PCTS, GCPs, 
+
+bayesian classn signatures
+
+random forests data
+
+modality-specific header info.
+
+2d, 3d meshes
+
+2d, 3d triangulations
+
+2d, 3d objects
+
+and we can use the sqlite3 to make a standard relational
+database, instead of the spatialite database we have already       
+created for vectors.
+This can be used for std spreadsheets, etc....
+
+lots of arbitrary data formats for various computer codes
+can be re-created as IFILE's with minor modifications to
+the original codes (as I've implemented all the C file
+operations for IFILE's).
+
+is it possible to include ESMF in this?
+
+Need forward and inverse models of all kinds.
+
+calibration
+
+etc.
+
+
+
+
+*/
+

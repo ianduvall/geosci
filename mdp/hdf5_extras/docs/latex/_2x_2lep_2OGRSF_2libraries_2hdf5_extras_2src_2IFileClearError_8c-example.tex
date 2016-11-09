@@ -1,0 +1,31 @@
+\hypertarget{_2x_2lep_2OGRSF_2libraries_2hdf5_extras_2src_2IFileClearError_8c-example}{\section{/x/lep/\+O\+G\+R\+S\+F/libraries/hdf5\+\_\+extras/src/\+I\+File\+Clear\+Error.\+c}
+}
+I\+File\+Clear\+Error clears the error condition on an internal file
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ifilep} & The struct of the open internal file.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T\+R\+U\+E is returned on S\+U\+C\+C\+E\+S\+S, F\+A\+L\+S\+E otherwise. The error\+\_\+string variable is also set to a system-\/specific error code on failure.
+\end{DoxyReturn}
+Let's assume that one already has an Geo\+Sci file, and one wants to clear any error related to the previous read from an internal file named \char`\"{}/somename\char`\"{}. 
+\begin{DoxyCode}
+hid\_t file\_id;
+\hyperlink{structIFILE}{IFILE} *ifilep;
+\textcolor{keywordtype}{char} c;
+
+ifilep = \hyperlink{ifile_8h_a659760c048381d534347487e14cd5e25}{IFileOpen}(file\_id,\textcolor{stringliteral}{"/somename"},\textcolor{stringliteral}{"w"});
+....
+c = IFileGets(ifilep);
+
+IFileClearError(ifilep);
+\end{DoxyCode}
+
+
+\begin{DoxyParagraph}{Details}
+This function is meant to emulate as close as possible the standard C clearerr() function.
+\end{DoxyParagraph}
+
+\begin{DoxyCodeInclude}
+\end{DoxyCodeInclude}
+ 

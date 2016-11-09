@@ -1,0 +1,6 @@
+to make boost:
+    Go to the top directory.
+    Run bootstrap.sh.
+    Run b2 install --prefix=PREFIX where PREFIX is the directory where you want Boost.Build to be installed.
+    Add PREFIX/bin to your PATH environment variable.
+

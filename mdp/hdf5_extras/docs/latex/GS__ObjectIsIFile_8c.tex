@@ -1,0 +1,95 @@
+\hypertarget{GS__ObjectIsIFile_8c}{\section{src/\+G\+S\+\_\+\+Object\+Is\+I\+File.c File Reference}
+\label{GS__ObjectIsIFile_8c}\index{src/\+G\+S\+\_\+\+Object\+Is\+I\+File.\+c@{src/\+G\+S\+\_\+\+Object\+Is\+I\+File.\+c}}
+}
+{\ttfamily \#include \char`\"{}ifile.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}bstrlib.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{GS__ObjectIsIFile_8c_a1cb5a5a9179ebbfd3c6002c2204d88dd}{G\+S\+\_\+\+Object\+Is\+I\+File} (hid\+\_\+t id, \hyperlink{structtagbstring}{const\+\_\+bstring} name)
+\begin{DoxyCompactList}\small\item\em G\+S\+\_\+\+Object\+Is\+I\+File determines if the object is an internal file. \end{DoxyCompactList}\item 
+int \hyperlink{GS__ObjectIsIFile_8c_a136226148d184e5523c92fcf3d1727d3}{G\+S\+\_\+\+Object\+Is\+I\+File\+By\+I\+D} (hid\+\_\+t dataset\+\_\+id)
+\begin{DoxyCompactList}\small\item\em G\+S\+\_\+\+Object\+Is\+I\+File\+By\+I\+D determines if the object\+I\+D is an internal file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{GS__ObjectIsIFile_8c_a1cb5a5a9179ebbfd3c6002c2204d88dd}{\index{G\+S\+\_\+\+Object\+Is\+I\+File.\+c@{G\+S\+\_\+\+Object\+Is\+I\+File.\+c}!G\+S\+\_\+\+Object\+Is\+I\+File@{G\+S\+\_\+\+Object\+Is\+I\+File}}
+\index{G\+S\+\_\+\+Object\+Is\+I\+File@{G\+S\+\_\+\+Object\+Is\+I\+File}!G\+S\+\_\+\+Object\+Is\+I\+File.\+c@{G\+S\+\_\+\+Object\+Is\+I\+File.\+c}}
+\subsubsection[{G\+S\+\_\+\+Object\+Is\+I\+File}]{\setlength{\rightskip}{0pt plus 5cm}int G\+S\+\_\+\+Object\+Is\+I\+File (
+\begin{DoxyParamCaption}
+\item[{hid\+\_\+t}]{id, }
+\item[{{\bf const\+\_\+bstring}}]{name}
+\end{DoxyParamCaption}
+)}}\label{GS__ObjectIsIFile_8c_a1cb5a5a9179ebbfd3c6002c2204d88dd}
+
+
+G\+S\+\_\+\+Object\+Is\+I\+File determines if the object is an internal file. 
+
+G\+S\+\_\+ Object\+Is\+I\+File() determines if the object is an internal file in a geoscipy database file.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em id} & The handle for the already-\/open group.\\
+\hline
+\mbox{\tt in}  & {\em name} & The name of the ifile within the group.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily T\+R\+U\+E} is returned if the object is an I\+File, {\ttfamily F\+A\+L\+S\+E} otherwise.
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example}
+Open an internal file and query if it's valid I\+File handle\+: 
+\begin{DoxyCode}
+hid\_t file\_id;
+hid\_t group\_id;
+
+group\_id = \hyperlink{GS__GroupOpen_8c_a8df2ff48d2ef0ffa139a42b996581af6}{GS\_GroupOpen}(file\_id,\textcolor{stringliteral}{"/somename"});
+\textcolor{keywordflow}{if}(group\_id < 0) \{
+   printf(\textcolor{stringliteral}{"GS\_GroupOpen failed on /somename\(\backslash\)n"});
+\}
+\hyperlink{structtagbstring}{bstring} internal\_file\_name=bfromcstr(\textcolor{stringliteral}{"internal\_file\_name"});
+\textcolor{keywordflow}{if}(!\hyperlink{GS__ObjectIsIFile_8c_a1cb5a5a9179ebbfd3c6002c2204d88dd}{GS\_ObjectIsIFile}(group\_id, internal\_file\_name ))\{
+  printf(\textcolor{stringliteral}{"Object is not an internal file.\(\backslash\)n"});
+\}
+bdestroy(internal\_file\_name);
+\end{DoxyCode}
+ 
+\end{DoxyParagraph}
+\hypertarget{GS__ObjectIsIFile_8c_a136226148d184e5523c92fcf3d1727d3}{\index{G\+S\+\_\+\+Object\+Is\+I\+File.\+c@{G\+S\+\_\+\+Object\+Is\+I\+File.\+c}!G\+S\+\_\+\+Object\+Is\+I\+File\+By\+I\+D@{G\+S\+\_\+\+Object\+Is\+I\+File\+By\+I\+D}}
+\index{G\+S\+\_\+\+Object\+Is\+I\+File\+By\+I\+D@{G\+S\+\_\+\+Object\+Is\+I\+File\+By\+I\+D}!G\+S\+\_\+\+Object\+Is\+I\+File.\+c@{G\+S\+\_\+\+Object\+Is\+I\+File.\+c}}
+\subsubsection[{G\+S\+\_\+\+Object\+Is\+I\+File\+By\+I\+D}]{\setlength{\rightskip}{0pt plus 5cm}int G\+S\+\_\+\+Object\+Is\+I\+File\+By\+I\+D (
+\begin{DoxyParamCaption}
+\item[{hid\+\_\+t}]{dataset\+\_\+id}
+\end{DoxyParamCaption}
+)}}\label{GS__ObjectIsIFile_8c_a136226148d184e5523c92fcf3d1727d3}
+
+
+G\+S\+\_\+\+Object\+Is\+I\+File\+By\+I\+D determines if the object\+I\+D is an internal file. 
+
+G\+S\+\_\+ Object\+Is\+I\+File() determines if the object\+I\+D is an internal file in a geoscipy database file.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em id} & The handle of the open internal file.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily T\+R\+U\+E} is returned if the object is an I\+File, {\ttfamily F\+A\+L\+S\+E} otherwise.
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example}
+Open an internal file and query if it's valid I\+File handle\+: 
+\begin{DoxyCode}
+hid\_t file\_id;
+hid\_t internal\_file\_id;
+
+internal\_file\_id = GS\_IFileOpen(file\_id,\textcolor{stringliteral}{"/somename"},\textcolor{stringliteral}{"w"});
+\textcolor{keywordflow}{if}(internal\_file\_id < 0) \{
+   printf(\textcolor{stringliteral}{"GS\_IFileOpen failed on /somename\(\backslash\)n"});
+\}
+
+\textcolor{keywordflow}{if}(!\hyperlink{GS__ObjectIsIFile_8c_a136226148d184e5523c92fcf3d1727d3}{GS\_ObjectIsIFileByID}(internal\_file\_id))\{
+  printf(\textcolor{stringliteral}{"Object is not an internal file.\(\backslash\)n"});
+\}
+\end{DoxyCode}
+ 
+\end{DoxyParagraph}

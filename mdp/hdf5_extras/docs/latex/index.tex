@@ -1,0 +1,12 @@
+\begin{DoxyParagraph}{Intended Audience}
+
+\end{DoxyParagraph}
+This manual is intended for programmers who wish to understand the low-\/level design of the hdf5-\/extras C library, and contribute to it as developers. It describes the choices made and the reasons for them, and then goes on to describe the implementation of the basic data types that the rest of the library is based on. It also gives details as to how to write documentation, tests, and gives a more in-\/depth description of the logical file format.
+
+\begin{DoxyParagraph}{Structure of the Manual}
+
+\end{DoxyParagraph}
+This manual consists of the following chapters\+:
+
+\begin{DoxyItemize}
+\item \hyperlink{intro}{Introduction} is a brief introduction to the manual. \item \hyperlink{code_organization}{Code Organization} explains the major divisions of the library, and what is in each. \item \hyperlink{base_library}{Base Library} introduces functions used throughout the code for file I/\+O, safe strings, and other miscellaneous needs. \item \hyperlink{hdf_library}{H\+D\+F5 Abstraction Library} shows the functions that are used in order to abstract the required functionality of the H\+D\+F5 file format. \item \hyperlink{ifile_library}{H\+D\+F5 Internal Files} explains the concept of an internal file that can be created within an H\+D\+F5 fileand routines that are used for storing and manipulating data in an internal file. \item \hyperlink{vfs_library}{sqlite3 vfs} contains a description of the routines used to embed an sqlite3 database file in an internal file. \item \hyperlink{file_format}{File Format} gives a brief overview of the logical arrangement of metadata, datasets, and groups that go into making a valid Geo\+Sci\+Lib H\+D\+F-\/5 file. \end{DoxyItemize}

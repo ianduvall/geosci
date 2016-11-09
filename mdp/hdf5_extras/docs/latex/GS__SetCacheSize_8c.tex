@@ -1,0 +1,61 @@
+\hypertarget{GS__SetCacheSize_8c}{\section{src/\+G\+S\+\_\+\+Set\+Cache\+Size.c File Reference}
+\label{GS__SetCacheSize_8c}\index{src/\+G\+S\+\_\+\+Set\+Cache\+Size.\+c@{src/\+G\+S\+\_\+\+Set\+Cache\+Size.\+c}}
+}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}bstrlib.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gmalloc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}H5\+A\+T\+T\+R.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}globals.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{GS__SetCacheSize_8c_a8fe83ac76edc595f6b98cd4a4127aed5}{\#define {\bfseries E\+R\+R\+O\+R}~-\/1}\label{GS__SetCacheSize_8c_a8fe83ac76edc595f6b98cd4a4127aed5}
+
+\item 
+\hypertarget{GS__SetCacheSize_8c_aa90cac659d18e8ef6294c7ae337f6b58}{\#define {\bfseries S\+U\+C\+C\+E\+S\+S}~0}\label{GS__SetCacheSize_8c_aa90cac659d18e8ef6294c7ae337f6b58}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+herr\+\_\+t \hyperlink{GS__SetCacheSize_8c_a13f56a548b4aae09f8ac914f72a7352f}{G\+S\+\_\+\+Set\+Cache\+Size} (hid\+\_\+t file\+\_\+id, size\+\_\+t cache\+\_\+size)
+\begin{DoxyCompactList}\small\item\em G\+S\+\_\+\+Set\+Cache\+Size sets the metadata cache size for a Geo\+Sci datafile. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{GS__SetCacheSize_8c_a13f56a548b4aae09f8ac914f72a7352f}{\index{G\+S\+\_\+\+Set\+Cache\+Size.\+c@{G\+S\+\_\+\+Set\+Cache\+Size.\+c}!G\+S\+\_\+\+Set\+Cache\+Size@{G\+S\+\_\+\+Set\+Cache\+Size}}
+\index{G\+S\+\_\+\+Set\+Cache\+Size@{G\+S\+\_\+\+Set\+Cache\+Size}!G\+S\+\_\+\+Set\+Cache\+Size.\+c@{G\+S\+\_\+\+Set\+Cache\+Size.\+c}}
+\subsubsection[{G\+S\+\_\+\+Set\+Cache\+Size}]{\setlength{\rightskip}{0pt plus 5cm}herr\+\_\+t G\+S\+\_\+\+Set\+Cache\+Size (
+\begin{DoxyParamCaption}
+\item[{hid\+\_\+t}]{file\+\_\+id, }
+\item[{size\+\_\+t}]{cache\+\_\+size}
+\end{DoxyParamCaption}
+)}}\label{GS__SetCacheSize_8c_a13f56a548b4aae09f8ac914f72a7352f}
+
+
+G\+S\+\_\+\+Set\+Cache\+Size sets the metadata cache size for a Geo\+Sci datafile. 
+
+\hyperlink{GS__SetCacheSize_8c_a13f56a548b4aae09f8ac914f72a7352f}{G\+S\+\_\+\+Set\+Cache\+Size()} sets the metadata cache size for a Geo\+Sci datafile. Used when creating a file.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em file\+\_\+id} & File handle for Geo\+Sci datafile \\
+\hline
+\mbox{\tt in}  & {\em cache\+\_\+size} & Size in bytes for the metadata cache. 1048576 (1 M\+Byte) is a good default.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A non-\/negative integer is returned on success, while a negative integer is returned on failure.
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example}
+Set the cache size to be 1\+M\+Byte\+: 
+\begin{DoxyCode}
+hid\_t file\_id;
+\textcolor{keywordflow}{if}(\hyperlink{GS__SetCacheSize_8c_a13f56a548b4aae09f8ac914f72a7352f}{GS\_SetCacheSize}(file\_id,1048576) < 0)\{
+   printf(\textcolor{stringliteral}{"Error setting cache size.\(\backslash\)n"});
+\}
+\end{DoxyCode}
+ 
+\end{DoxyParagraph}

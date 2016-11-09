@@ -1,0 +1,28 @@
+The hdf5-\/extras C library implements all functions that are needed for reading, storing, processing, and reporting on data stored in an H\+D\+F5 file, including images and vector data.
+
+We start with the assumtion that the user does not have enough memory to store an entire dataset in R\+A\+M, and so the dataset must be stored in a file or files that are on the hard drive of their computer, or on some other computer. The open-\/source H\+D\+F5 library is used to implement this file, in part because it enables having a \char`\"{}file-\/system within a file\char`\"{} structure for data and metadata, and also enables parallel I/\+O operations.
+
+We also implement our own malloc/free functions, for efficiency, but also in case we need to change it in the future.
+
+Because C strings are so error-\/prone, we have chosen to use an open-\/source implementation called the \char`\"{}\+Better String\char`\"{} library.
+
+The error reporting is done via a global better-\/string variable that is set when an error is detected, and the routine that detected it returns an error-\/code that the caller can choose to honor or ignore.
+
+Testing is accomplished using the unit test framework called \char`\"{}check\char`\"{}.
+
+The Gnu C compiler is used, with implementations available on all 3 major platforms.
+
+Naming of most library functions uses a \char`\"{}\+G\+S\+\_\+\char`\"{} prefix, using upper camel-\/case for the remaining part of the name. For variables, we use lower camel-\/case. For the internal file implementation we start each function with \char`\"{}\+I\+File\char`\"{}.
+
+Code documentation (for developers and advanced users) is via Doxygen.\hypertarget{intro_Terminology}{}\section{Terminology}\label{intro_Terminology}
+The terminology used reflects the object structure within a Geo\+Sci file. In particular, the major object types that are supported are called\+: Image, Vector, and Metadata.
+
+Within an Image we have\+: \begin{DoxyItemize}
+\item Metadata Items\+: single-\/string values, \item Metadata Datasets\+: whose values are made up of many different variables, \item Rasters\+: representing a single channel of some datatype, \item Pyramids\+: reduced-\/resolution representations of each channel.\end{DoxyItemize}
+Within a Vector we have\+: \begin{DoxyItemize}
+\item Metadata Items\+: single-\/string values, \item Metadata Datasets\+: whose values are made up of many different variables, \item I\+File\+: an \char`\"{}internal file\char`\"{} that holds the spatial-\/relational database information that describes the Vector data.\end{DoxyItemize}
+There is also the terminology of H\+D\+F-\/5 that may be needed occassionally to understand certain things\+: \begin{DoxyItemize}
+\item Metadata\+: can contain strings, numbers, matrices, etc. So far we only use the single-\/string version of this H\+D\+F-\/5 construct. Can be attached to Groups or Datasets \item Group\+: Roughly equivalent to folders or directories in a computer\textquotesingle{}s filesystem. \item Dataset\+: Roughly equivalent to an ordinary file, but with special properties, allowing it to hold multidimensional typed data, can be a set length or extendable, and can be stored in a compressed format if desired.\end{DoxyItemize}
+There are other terms that are introduced as needed throughout the documentation.
+
+next\+: \hyperlink{code_organization}{Code Organization} 
