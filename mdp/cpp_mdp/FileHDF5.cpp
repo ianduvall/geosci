@@ -35,7 +35,7 @@ namespace GeoSci {
     FileHDF5::FileHDF5 (string name, unsigned int flags) {
         this->formatFilename(name);
         this->the_h5file = new H5::H5File(name,flags);
-        //this->createFileAttributes("creating FileHDF5 " + name);
+        this->createFileAttributes("creating FileHDF5 " + name);
         this->file = this->getId();
     }
     
@@ -220,6 +220,10 @@ namespace GeoSci {
 		if (exists(name)) {
 			throw FileExistsException();
 		}
+        
+        if (!isGeoSciHDF5File(name)) {
+            throw NotGeoSciFileException();
+        }
 		
 		if( ( file_id = GS_FileCreate(bname)) == ERROR){
 			bdestroy(bname);
