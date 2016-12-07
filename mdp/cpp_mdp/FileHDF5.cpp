@@ -12,6 +12,7 @@
 #include "MetadataHDF5.hpp"
 #include "Exceptions.hpp"
 #include "attributes.hpp"
+#include "StringAttributeHDF5.hpp"
 
 using namespace boost::filesystem;
 using namespace boost::posix_time;
