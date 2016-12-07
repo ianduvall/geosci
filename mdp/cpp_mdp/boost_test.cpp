@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_CASE( File_Test_Create ) {
 	
     File *myFile = nullptr;
     BOOST_REQUIRE_NO_THROW(myFile = File::create(filename, "HDF5"));
-    BOOST_CHECK(myFile != nullptr);
+    BOOST_REQUIRE(myFile != nullptr);
     myFile->closeFile();
 }
 

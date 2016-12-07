@@ -3,7 +3,7 @@
 
 BOOST_INCLUDE_DIR=/usr/include/boost
 BOOST_LIBRARY_DIR=/usr/lib/x86_64-linux-gnu
-BOOST_LIBRARIES=-lboost_filesystem -lboost_system
+BOOST_LIBRARIES=-lboost_filesystem -lboost_system -lboost_date_time
 BOOST=-I$(BOOST_INCLUDE_DIR) -L$(BOOST_LIBRARY_DIR) $(BOOST_LIBRARIES)
 ## also need to do: export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/lep/OGRSF/libraries/boost/boost_1_60_0/stage/lib
 
@@ -38,8 +38,8 @@ DEBUG=-g
 cpp_boost_test.o: cpp_boost_test.cpp File/File.hpp File/File.o Image/Image.hpp Image/Image.o Raster/Raster.hpp Raster/Raster.o FileHDF5.hpp FileHDF5.o ImageHDF5.hpp ImageHDF5.o RasterHDF5.hpp RasterHDF5.o attributes.o attributes.hpp MetadataHDF5.hpp MetadataHDF5.o
 	g++ $(DEBUG) $(DIALECT) -o cpp_boost_test.o cpp_boost_test.cpp File/File.o Image/Image.o Raster/Raster.o FileHDF5.o ImageHDF5.o RasterHDF5.o MetadataHDF5.o attributes.o -I$(BASE_INCLUDE_DIR) $(BOOST) $(HDF5)  $(HDF5_EXTRAS) $(HDF5)
 
-boost_test.o: boost_test.cpp File/File.hpp File/File.o Image/Image.hpp Image/Image.o Raster/Raster.hpp Raster/Raster.o FileHDF5.hpp FileHDF5.o ImageHDF5.hpp ImageHDF5.o RasterHDF5.hpp RasterHDF5.o attributes.o attributes.hpp MetadataHDF5.hpp MetadataHDF5.o
-	g++ $(DEBUG) $(DIALECT) -o boost_test.o boost_test.cpp File/File.o Image/Image.o Raster/Raster.o FileHDF5.o ImageHDF5.o RasterHDF5.o MetadataHDF5.o attributes.o -I$(BASE_INCLUDE_DIR) $(BOOST) $(HDF5)  $(HDF5_EXTRAS) $(HDF5)
+boost_test.o: boost_test.cpp File/File.hpp File/File.o Image/Image.hpp Image/Image.o Raster/Raster.hpp Raster/Raster.o FileHDF5.hpp FileHDF5.o ImageHDF5.hpp ImageHDF5.o RasterHDF5.hpp RasterHDF5.o attributes.o attributes.hpp MetadataHDF5.hpp MetadataHDF5.o StringAttributeHDF5.o
+	g++ $(DEBUG) $(DIALECT) -o boost_test.o boost_test.cpp File/File.o Image/Image.o Raster/Raster.o FileHDF5.o ImageHDF5.o RasterHDF5.o MetadataHDF5.o attributes.o StringAttributeHDF5.o -I$(BASE_INCLUDE_DIR) $(BOOST) $(HDF5)  $(HDF5_EXTRAS) $(HDF5)
 
 test0.o: test0.cpp File/File.hpp File/File.o Image/Image.hpp Image/Image.o Raster/Raster.hpp Raster/Raster.o FileHDF5.hpp FileHDF5.o ImageHDF5.hpp ImageHDF5.o RasterHDF5.hpp RasterHDF5.o attributes.o attributes.hpp MetadataHDF5.hpp MetadataHDF5.o
 	g++ $(DEBUG) $(DIALECT) -o test0.o test0.cpp File/File.o Image/Image.o Raster/Raster.o FileHDF5.o ImageHDF5.o RasterHDF5.o MetadataHDF5.o attributes.o -I$(BASE_INCLUDE_DIR) $(BOOST) $(HDF5)  $(HDF5_EXTRAS) $(HDF5)
@@ -90,6 +90,8 @@ MetadataHDF5.o: MetadataHDF5.cpp MetadataHDF5.hpp ../Exceptions.hpp attributes.h
 attributes.o: attributes.cpp attributes.hpp
 	g++ $(DEBUG) -c -o attributes.o attributes.cpp -I$(BASE_INCLUDE_DIR) -I$(HDF5_INCLUDE_DIR)  $(HDF5_EXTRAS)
 
+StringAttributeHDF5.o: StringAttributeHDF5.cpp StringAttributeHDF5.hpp
+	g++ $(DIALECT) -c -o StringAttributeHDF5.o StringAttributeHDF5.cpp -I$(BOOST_INCLUDE_DIR) -I$(BASE_INCLUDE_DIR) -I$(HDF5_INCLUDE_DIR)
 
 
 clean:
