@@ -176,7 +176,7 @@ namespace GeoSci {
             StrType type(PredType::C_S1, H5T_VARIABLE);
             H5std_string attrVal1, attrVal2;
             f->openAttribute("filetype").read(type, attrVal1);
-            f->openStringAttribute("filelib").read(type, attrVal2);
+            f->openAttribute("filelib").read(type, attrVal2);
             // !!! need query attribute function
             if (attrVal1 != "GEOSCI" || attrVal2 != "HDF5") {
                 //throw NotGeoSciFileException(); // filehdf5 specific exc?
