@@ -173,10 +173,11 @@ namespace GeoSci {
 #endif
             
             H5::H5File *f = H5File(filename, H5F_ACC_RDONLY);
-            
+            //StrType type(PredType::C_S1, H5T_VARIABLE);
+            //H5std_string attrVal;
             // !!! need query attribute function
-            if (f->openAttribute("filetype").read() != "GEOSCI"
-                || f->openAttribute("filelib").read() != "HDF5") {
+            if (f->openStringAttribute("filetype").read() != "GEOSCI"
+                || f->openStringAttribute("filelib").read() != "HDF5") {
                 //throw NotGeoSciFileException(); // filehdf5 specific exc?
                 return false;
             }
