@@ -172,15 +172,19 @@ namespace GeoSci {
             std::cout << "file is GeoSci\n";
 #endif
             
-            H5::H5File *f = H5File(filename, H5F_ACC_RDONLY);
-            //StrType type(PredType::C_S1, H5T_VARIABLE);
-            //H5std_string attrVal;
+            H5::H5File *f = new H5File(filename, H5F_ACC_RDONLY);
+            StrType type(PredType::C_S1, H5T_VARIABLE);
+            H5std_string attrVal1, attrVal2;
+            f->openAttribute("filetype").read(type, attrVal1);
+            f->openStringAttribute("filelib").read(type, attrVal2);
             // !!! need query attribute function
-            if (f->openStringAttribute("filetype").read() != "GEOSCI"
-                || f->openStringAttribute("filelib").read() != "HDF5") {
+            if (attrVal1 != "GEOSCI" || attrVal2 != "HDF5") {
                 //throw NotGeoSciFileException(); // filehdf5 specific exc?
                 return false;
             }
+            
+            f->close();
+            delete f;
             
 #ifdef DEBUG
             // std::cout << "file is GeoSci HDF5, attributes exist\n";
