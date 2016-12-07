@@ -1,9 +1,11 @@
-//FileHDF5.cpp, by Laura Huang, April, 2016
+//FileHDF5.cpp
 //#include <H5File.h>
-#include "H5Cpp.h"
+
 #include <string>
 #include <iostream>
 #include <boost/filesystem.hpp>
+#include "boost/date_time/posix_time/posix_time.hpp"
+#include "H5Cpp.h"
 
 #include "FileHDF5.hpp"
 #include "ImageHDF5.hpp"
@@ -12,6 +14,7 @@
 #include "attributes.hpp"
 
 using namespace boost::filesystem;
+using namespace boost::posix_time;
 using namespace H5;
 using namespace std;
 
@@ -25,6 +28,85 @@ extern "C" {
 namespace GeoSci {
 
 	DerivedRegister<FileHDF5> FileHDF5::reg("HDF5");
+    
+    
+    FileHDF5::FileHDF5 (string name, unsigned int flags) {
+        this->formatFilename(name);
+        this->the_h5file = new H5::H5File(name,flags);
+        this->createFileAttributes("creating FileHDF5 " + name);
+        this->file = this->getId();
+    }
+    
+    FileHDF5::~FileHDF5() {
+        delete this->the_h5file;
+    }
+    
+    void FileHDF5::createFileAttributes(const std::string &descriptor) {
+#ifdef DEBUG
+        cout << "start of createFileAttributes"<<endl;
+#endif
+        createStringAttribute("filetype").write("GEOSCI");
+#ifdef DEBUG
+        cout << "createFileAttributes: created filetype"<<endl;
+#endif
+        
+        createStringAttribute("software_version").write("V0.0.1");
+#ifdef DEBUG
+        cout << "createFileAttributes: created software_version"<<endl;
+#endif
+        
+        createStringAttribute("descriptor").write(descriptor);
+#ifdef DEBUG
+        cout << "createFileAttributes: created descriptor"<<endl;
+#endif
+        
+        createStringAttribute("writeable").write("TRUE");
+#ifdef DEBUG
+        cout << "createFileAttributes: created writeable"<<endl;
+#endif
+        
+        ptime t(second_clock::universal_time());
+        //string datetime=to_iso_extended_string(t)+"UTC";
+        string datetime=to_simple_string(t)+"UTC";
+        createStringAttribute("creation_datetime").write(datetime);
+#ifdef DEBUG
+        cout << "createFileAttributes: created creaton_datetime"<<endl;
+#endif
+        
+        createStringAttribute("last_update_datetime").write(datetime);
+#ifdef DEBUG
+        cout << "createFileAttributes: created last_update_datetime"<<endl;
+#endif
+        
+        createStringAttribute("history").write(datetime+": Creation;");
+#ifdef DEBUG
+        cout << "createFileAttributes: created history"<<endl;
+        cout << "                       "<<openStringAttribute("history").read()<<endl;
+#endif
+    }
+    
+    
+    Attribute FileHDF5::createAttribute(const std::string &name, const DataType &type, const DataSpace &space) const {
+        return the_h5file->createAttribute(name,type,space);
+    }
+    
+    Attribute FileHDF5::openAttribute(const std::string &name) const {
+        return the_h5file->openAttribute(name);
+    }
+    
+    StringAttributeHDF5 FileHDF5::createStringAttribute(const std::string &name) const {
+        DataSpace space = DataSpace(H5S_SCALAR);
+        StrType   type(PredType::C_S1, H5T_VARIABLE);
+        return static_cast<StringAttributeHDF5>(the_h5file->createAttribute(name,type,space));
+    }
+    
+    StringAttributeHDF5 FileHDF5::openStringAttribute(const std::string &name) const {
+        return static_cast<StringAttributeHDF5>(the_h5file->openAttribute(name));
+    }
+    
+    
+    
+    
 	
 	void FileHDF5::printa() {
 		std::cout << "FileHDF5, printa\n";
@@ -69,86 +151,42 @@ namespace GeoSci {
 	bool FileHDF5::isGeoSciHDF5File(const std::string& filename) {
 
 #ifdef DEBUG
-      std::cout << "start of isGeoSciHDF5File\n";
+        std::cout << "start of isGeoSciHDF5File\n";
 #endif
-      int cset;
-    path p(filename);
-    path ap(p);
+        int cset;
+        path p(filename);
+        path ap(p);
 #ifdef DEBUG
-		std::cout << "path: " << ap << std::endl;
-      std::cout << "checking if file " << filename << " exists\n";
+        std::cout << "path: " << ap << std::endl;
+        std::cout << "checking if file " << filename << " exists\n";
 #endif
-    if(exists(ap) && is_regular_file(ap) ){
+        if (exists(ap) && is_regular_file(ap)) {
 #ifdef DEBUG
-      std::cout << "file exists\n";
+            std::cout << "file exists\n";
 #endif
-		
-      //if(!isHDF5(filename.c_str()) ) {
-      //  return false;
-      //  }//endif
-      
-      const H5std_string FILE_NAME( filename );
-      hid_t file_id;
-      bstring bfilename = bfromcstr(filename.c_str());
-      bstring baccess = bfromcstr("r+");
-      file_id = GS_FileOpen(bfilename,baccess);
-      if(file_id <0){
-          bdestroy(bfilename);
-          bdestroy(baccess);
-          throw FileOpenErrorException();
-      }
-      bdestroy(bfilename);
-      bdestroy(baccess);
+            if (!H5::isHdf5(filename)) {
+                //throw NotGeoSciFileException();
+                return false;
+            }
 #ifdef DEBUG
-      std::cout << "file open\n";
+            std::cout << "file is GeoSci\n";
 #endif
-
-      hid_t file_header_id;
-      if((file_header_id =GS_GroupOpen(file_id,file_metadata_name)) < 0 ) {
-          bassignformat(error_string,"FileHDF5: Error opening metadata.");
-          GS_FileClose(file_id);
-          throw MetadataDoesNotExistException();
-      }
+            
+            if (this->openAttribute("filetype").read() != "GEOSCI" || this->openAttribute("filelib").read() != "HDF5") {
+                //throw NotGeoSciFileException(); // filehdf5 specific exc?
+                return false;
+            }
 #ifdef DEBUG
-      std::cout << "metadata exists\n";
+            std::cout << "file is GeoSci HDF5, attributes exist\n";
 #endif
-
-      if(query_attribute(file_header_id,"filetype")!="GEOSCI" ||
-         query_attribute(file_header_id,"filelib")!="HDF5") {
-          GS_GroupClose(file_header_id);
-          GS_FileClose(file_id);
-          return false;
-      }
-#ifdef DEBUG
-      std::cout << "attributes exist\n";
-#endif
-      
-      GS_GroupClose(file_header_id);
-      if(!GS_FileClose(file_id)){
-#ifdef DEBUG
-          printf("isGeoSciHDF5File: GS_FileClose failed.\n");
-#endif          
-      }else {
-#ifdef DEBUG
-          printf("isGeoSciHDF5File: GS_FileClose succeeded.\n");
-#endif          
-      }
-      
-      
-      
-      
-    } else {
-#ifdef DEBUG
-      std::cout << "file does not exist!\n";
-#endif
-      return false;
-    }// endif
-    return true;
-  }// end isGeoSciHDF5File()
-  
+            return true;
+        }
+        
+        return false;
+    } // end isGeoSciHDF5File()
 	
 	
-	void FileHDF5::createFile(std::string name) {
+    void FileHDF5::createFile(std::string name) {
 		if (name.empty()) {
 			throw FileInvalidNameException();
 		}
@@ -372,7 +410,7 @@ namespace GeoSci {
 		return;
 	}// end destroy_image()
 	
-}//end-GeoSci namespace
+} // end-GeoSci namespace
 
 
 //#endif

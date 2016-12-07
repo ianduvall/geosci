@@ -7,6 +7,7 @@
 #include "H5Cpp.h"
 #include "File/File.hpp"
 #include "ImageHDF5.hpp"
+#include "StringAttributeHDF5.hpp"
 
 using namespace H5;
 
@@ -48,18 +49,26 @@ We can also query if a file is of this type.
 */	
 
 class FileHDF5 : public GeoSci::File, public H5::H5File {
-
+private:
+    
 public:
 	static GeoSci::DerivedRegister<FileHDF5> reg;
+    H5::H5File *the_h5file;
     std::string filename;
     hid_t file;
 
-	//FileHDF5();
+    // ctor
+    FileHDF5(std::string name, unsigned int flags);
+    
+    // dtor
+    ~FileHDF5();
+    
+    void createFileAttributes(const std::string &descriptor);
+    Attribute createAttribute(const std::string &name, const DataType &type, const DataSpace &space) const;
+    Attribute openAttribute(const std::string &name) const;
+    StringAttributeHDF5 createStringAttribute(const std::string &name) const;
+    StringAttributeHDF5 openStringAttribute(const std::string &name) const;
 
-    // recall that the parent class defines the following public data objects:
-    // FileType filetype;
-    // vector<Metadata> open_metadata_objects;
-    // vector<Image> open_image_objects;
     
 	void printa();
 	void printb();
