@@ -220,10 +220,6 @@ namespace GeoSci {
 		if (exists(name)) {
 			throw FileExistsException();
 		}
-        
-        if (!isGeoSciHDF5File(name)) {
-            throw NotGeoSciFileException();
-        }
 		
 		if( ( file_id = GS_FileCreate(bname)) == ERROR){
 			bdestroy(bname);
