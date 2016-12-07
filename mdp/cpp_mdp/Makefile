@@ -35,6 +35,9 @@ DIALECT=-std=c++14
 
 DEBUG=-g
 
+cpp_boost_test.o: cpp_boost_test.cpp File/File.hpp File/File.o Image/Image.hpp Image/Image.o Raster/Raster.hpp Raster/Raster.o FileHDF5.hpp FileHDF5.o ImageHDF5.hpp ImageHDF5.o RasterHDF5.hpp RasterHDF5.o attributes.o attributes.hpp MetadataHDF5.hpp MetadataHDF5.o
+	g++ $(DEBUG) $(DIALECT) -o cpp_boost_test.o cpp_boost_test.cpp File/File.o Image/Image.o Raster/Raster.o FileHDF5.o ImageHDF5.o RasterHDF5.o MetadataHDF5.o attributes.o -I$(BASE_INCLUDE_DIR) $(BOOST) $(HDF5)  $(HDF5_EXTRAS) $(HDF5)
+
 boost_test.o: boost_test.cpp File/File.hpp File/File.o Image/Image.hpp Image/Image.o Raster/Raster.hpp Raster/Raster.o FileHDF5.hpp FileHDF5.o ImageHDF5.hpp ImageHDF5.o RasterHDF5.hpp RasterHDF5.o attributes.o attributes.hpp MetadataHDF5.hpp MetadataHDF5.o
 	g++ $(DEBUG) $(DIALECT) -o boost_test.o boost_test.cpp File/File.o Image/Image.o Raster/Raster.o FileHDF5.o ImageHDF5.o RasterHDF5.o MetadataHDF5.o attributes.o -I$(BASE_INCLUDE_DIR) $(BOOST) $(HDF5)  $(HDF5_EXTRAS) $(HDF5)
 

@@ -105,7 +105,7 @@ public:
 		return;
 	}
 	
-	virtual void createFile(const std::string&) = 0;
+	virtual void createFile(std::string) = 0;
 	virtual void destroyFile(const std::string&) = 0;
 	virtual void openFile(const std::string&, const std::string&) = 0;
 	virtual void closeFile() = 0;

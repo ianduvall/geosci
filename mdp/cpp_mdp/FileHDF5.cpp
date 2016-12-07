@@ -28,6 +28,7 @@ namespace GeoSci {
 	
 	void FileHDF5::printa() {
 		std::cout << "FileHDF5, printa\n";
+		
 		return;
     }
     
@@ -36,8 +37,13 @@ namespace GeoSci {
 		return;
 	}
 	
+	void FileHDF5::printHDF5() {
+		std::cout << "FileHDF5, printHDF5" << endl;
+		return;
+	}
+	
 	void FileHDF5::formatFilename(string& filename) {
-		string extension = ".h5";
+		const string extension = ".h5";
 		
 		// check for empty filename
 		if (filename.empty()) {
@@ -142,12 +148,11 @@ namespace GeoSci {
   
 	
 	
-	void FileHDF5::createFile(const std::string& nameIn) {
-		if (nameIn.empty()) {
+	void FileHDF5::createFile(std::string name) {
+		if (name.empty()) {
 			throw FileInvalidNameException();
 		}
-		// copy
-		string name = nameIn;
+		
 		// check extension
 		formatFilename(name);
 		

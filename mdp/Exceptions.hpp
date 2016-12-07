@@ -28,7 +28,7 @@ namespace GeoSci {
                 return "FileCreationError";
             }
     };
-    class FileCreationInvalidNameException: public exception
+    class FileInvalidNameException: public exception
     {
         virtual const char* what() const throw()
             {
