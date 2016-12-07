@@ -29,6 +29,7 @@ namespace GeoSci {
 
 	DerivedRegister<FileHDF5> FileHDF5::reg("HDF5");
     
+    FileHDF5::FileHDF5() : the_h5file(nullptr), filename(""), file(0) {}
     
     FileHDF5::FileHDF5 (string name, unsigned int flags) {
         this->formatFilename(name);
@@ -153,7 +154,6 @@ namespace GeoSci {
 #ifdef DEBUG
         std::cout << "start of isGeoSciHDF5File\n";
 #endif
-        int cset;
         path p(filename);
         path ap(p);
 #ifdef DEBUG
@@ -164,7 +164,7 @@ namespace GeoSci {
 #ifdef DEBUG
             std::cout << "file exists\n";
 #endif
-            if (!H5::isHdf5(filename)) {
+            if (!this->isHdf5(filename)) {
                 //throw NotGeoSciFileException();
                 return false;
             }
@@ -172,7 +172,7 @@ namespace GeoSci {
             std::cout << "file is GeoSci\n";
 #endif
             
-            if (this->openAttribute("filetype").read() != "GEOSCI" || this->openAttribute("filelib").read() != "HDF5") {
+            if (openAttribute("filetype").read() != "GEOSCI" || openAttribute("filelib").read() != "HDF5") {
                 //throw NotGeoSciFileException(); // filehdf5 specific exc?
                 return false;
             }

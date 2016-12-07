@@ -49,14 +49,15 @@ We can also query if a file is of this type.
 */	
 
 class FileHDF5 : public GeoSci::File, public H5::H5File {
-private:
-    
 public:
 	static GeoSci::DerivedRegister<FileHDF5> reg;
     H5::H5File *the_h5file;
     std::string filename;
     hid_t file;
 
+    // default ctor
+    FileHDF5();
+    
     // ctor
     FileHDF5(std::string name, unsigned int flags);
     
